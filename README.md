@@ -15,7 +15,7 @@ Production-oriented **static Astro** publication, redesigned as a restrained fin
 
 ## Technology and performance
 
-- Astro 5 static output; no runtime server/database/credentials; scripts load only on calculator/search pages or when optional analytics is configured.
+- Astro 7 static output; no runtime server/database/credentials; scripts load only on calculator/search pages or when optional analytics is configured.
 - Paper-white background, system sans and native serif headlines. A static SVG educational chart replaces generic hero images and gradients.
 - `npm run check:quality` audits page SEO, required outputs, build size and JavaScript budgets after building.
 - No AdSense, affiliate account, Google Analytics property, domain DNS setting, or verified contact mailbox is included by default.
@@ -23,15 +23,16 @@ Production-oriented **static Astro** publication, redesigned as a restrained fin
 ## Local commands
 
 ```bash
-npm install
+npm ci
 npm run dev
 npm run build
 npm run check:links
 npm run check:quality
+npm run check:security
 npm run preview
 ```
 
-Node 22 is recommended. After generating a reviewed `package-lock.json`, use `npm ci` for reproducible installs. Never commit secret credentials or API tokens, and do not place secrets in `PUBLIC_*` variables.
+Node 22.12+ is required for the audited Astro 7 dependency set. The committed `package-lock.json` is reproducible with `npm ci`. Never commit secret credentials or API tokens, and do not place secrets in `PUBLIC_*` variables.
 
 ## Domain & hosting
 
