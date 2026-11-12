@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import {SITE} from '../config';
+---
+<Base title="Contact TechMintAI" path="/contact/" description="Contact TechMintAI for corrections, editorial feedback, partnerships and business inquiries.">
+<div class="container"><div class="breadcrumb"><a href="/">Home</a> / Contact</div><header class="page-intro"><span class="eyebrow">Get in touch</span><h1>Contact TechMintAI.</h1><p>Found a correction, have a topic suggestion or want to discuss a legitimate commercial partnership?</p></header><div class="legal"><h2>General and editorial inquiries</h2><p>Email <a href={`mailto:${SITE.contact}`}>{SITE.contact}</a> with the article URL and the details of your request. If you are reporting an error, include an authoritative source when possible.</p><h2>Partnerships</h2><p>For advertising and sponsorship inquiries, clearly identify the company, campaign and proposed disclosure. We do not accept requests to disguise paid placements as independent editorial content.</p><h2>Before sending</h2><p>Do not send passwords, bank logins, sensitive financial documents or card details. Please note that the publisher must activate the public contact mailbox before this email route can reliably receive messages.</p></div></div>
+</Base>

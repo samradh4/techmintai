@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import {SITE} from '../config';
+---
+<Base title="Privacy Policy" path="/privacy/" description="TechMintAI privacy policy covering on-device calculators, analytics choices, future advertising, and contact information.">
+<div class="container"><div class="breadcrumb"><a href="/">Home</a> / Privacy</div><header class="page-intro"><span class="eyebrow">Your information</span><h1>Privacy policy</h1><p>Last updated: November 13, 2026. This policy explains our intended site setup and should be reviewed whenever services are enabled.</p></header><div class="legal">
+<h2>What we collect</h2><p>TechMintAI’s free calculators and article search run in your browser. Their values are not intentionally sent to our server. Normal website hosting may process your IP address, user agent, requested URL and other technical data in standard operational logs.</p>
+<h2>Optional analytics</h2><p>If Google Analytics is configured, we ask for an opt-in choice before the analytics script loads. If you decline, we do not load Google Analytics through our consent control. We store your preference locally in your browser. To change a previous choice, you can clear this site’s local storage and reload. Analytics collection and international transfers may be governed by Google’s own terms and policies.</p>
+<h2>Advertising and affiliate links</h2><p>We may display third-party advertisements or include affiliate links, which can involve cookies, cross-site requests or referral information. AdSense is disabled by default in the website source and must not be enabled until the publisher has a valid account and any necessary consent arrangements, including a Google-certified CMP for EEA/UK/Swiss personalized-ad requirements, are in place. When activated, this policy must be updated with the actual providers, purposes, lawful bases and available privacy controls.</p>
+<h2>Contact emails</h2><p>If you contact us by email, the message and your address will be processed to respond. Do not send passwords, payment card details or other sensitive information.</p>
+<h2>Retention and your choices</h2><p>Site operators may retain operational logs according to the hosting provider’s settings. Email correspondence may be retained to handle inquiries or meet legal obligations. You can request information or deletion where applicable by contacting us. Rights vary by location.</p>
+<h2>Security and external websites</h2><p>We use a static website architecture to limit attack surface and configure security headers at supported hosting providers. No internet service can guarantee absolute security. Links to external sites are subject to their own practices.</p>
+<h2>Contact</h2><p>Privacy questions: <a href={`mailto:${SITE.contact}`}>{SITE.contact}</a>. If this mailbox has not yet been configured, contact delivery may not work until the domain owner activates it.</p></div></div>
+</Base>

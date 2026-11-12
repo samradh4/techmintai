@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import {tools} from '../../config';
+---
+<Base title="Free Finance Calculators" path="/tools/" description="Free compound interest, monthly investment, loan payment and savings goal calculators. Private, simple and available without an account.">
+<div class="container"><div class="breadcrumb"><a href="/">Home</a> / Tools</div><header class="page-intro"><span class="eyebrow">Calculators & tools</span><h1>Free finance calculators.</h1><p>Understand possible outcomes and compare assumptions. Calculations run on your device; we do not receive the numbers you enter.</p></header><div class="tool-grid" style="padding-bottom:80px">{tools.map(tool=><a href={`/tools/${tool.slug}/`} class="tool-card"><span class="tool-symbol" aria-hidden="true">{tool.emoji}</span><h3>{tool.name}</h3><p>{tool.description}</p></a>)}</div></div>
+</Base>
