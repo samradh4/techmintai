@@ -1,34 +1,55 @@
-# TechMintAI — launch checklist
+# TechMintAI — Launch, SEO, performance & monetization checklist
 
-## Build and deploy
-1. `npm ci` after generating and committing `package-lock.json` using the actual Node/npm version used for deploy (or `npm install` if no lock yet).
-2. `npm run build`; `npm run check:links`.
-3. Deploy as a **static Astro site** with output directory `dist` to Vercel or Netlify; HTTPS enabled.
-4. Point the `techmintai.com` DNS at the selected hosting provider and redirect `www` to one canonical host. The site assumes `https://techmintai.com/`.
-5. Verify security headers on the actual live response: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS, CSP. Avoid HSTS includeSubDomains until every subdomain is HTTPS.
+## 1. Publish the actual domain
 
-## Search engine setup
-- Check `https://techmintai.com/robots.txt`, `/sitemap-index.xml`, and `/rss.xml` after deploy.
-- Verify the domain with **Google Search Console** using DNS TXT or provided verification file, submit `https://techmintai.com/sitemap-index.xml`.
-- Verify the property in **Bing Webmaster Tools** and submit the sitemap there too.
-- Inspect homepage, category, tools and article URLs for indexing; re-crawl after publication.
-- Check mobile viewport, canonical URL, metadata, JSON-LD, Core Web Vitals, 404 behavior and actual redirect headers.
-- Replace the sample launch articles with **human-reviewed, original, authoritative** content and real product evidence when writing reviews. Verify every claim, link and date. Do not publish fake reviews, inflated “best” lists or auto-generated news.
-- Review sitemap inclusion: search is noindex, 404 is excluded.
+- Confirm that your purchased domain **is** `techmintai.com`. If different, update canonical site settings everywhere listed in README.
+- Connect the GitHub repository to Vercel or Netlify: Astro preset, `npm run build`, output `dist`.
+- Point domain DNS to that host and choose **one** canonical version: `https://techmintai.com/` (current setting). Add a 301/308 redirect from `www` if it exists.
+- Confirm the domain has a valid HTTPS certificate and a real 404 status for missing pages.
+- Check live response headers: `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS and immutable caching for `/_astro/` assets. Hosting providers and custom proxies may handle headers differently.
+- Activate and test the email address in the Contact and Privacy pages. Set `PUBLIC_CONTACT_EMAIL` to a mailbox that can receive replies.
 
-## Accounts / revenue
-1. Create a **working** `hello@techmintai.com` email alias and test delivery, or set `PUBLIC_CONTACT_EMAIL` to another public mailbox.
-2. Complete privacy/terms and editorial review based on the real publisher identity, legal jurisdiction and providers. Templates are not legal advice.
-3. Create verified GA4 property. Set `PUBLIC_GA4_ID=G-...`. Analytics remains off until the visitor opts in via the site banner. Review consent requirements for all markets.
-4. Publish enough truly valuable original content and establish real navigation and contact before applying for Google AdSense. Approval is **not guaranteed**.
-5. Once approved, set `PUBLIC_ADSENSE_CLIENT_ID=ca-pub-...`. A valid `/ads.txt` line will be generated automatically at build time (rebuild to update). No fake publisher ID has been added.
-6. **Do not set** `PUBLIC_ADS_CONSENT_CONFIGURED=true` until required consent setup is complete, including Google-certified CMP for AdSense in EEA/UK/Switzerland where relevant, privacy policy updated, and ad behavior verified. Ads are disabled by default.
-7. Start affiliate monetization with directly useful tools or services readers need. Add only verified referral URLs and clear adjacent disclosures; no fake testimonials, pricing, rankings or performance claims.
-8. Add disclosed sponsorships only if they fit audience and do not compromise editorial integrity.
+## 2. Technical search indexing
 
-## Security and reliability
-- No database, login, data collection form or serverless function is used; calculators and search run entirely client-side.
-- Keep dependencies updated, pin with lockfile, enable GitHub dependency alerts / secret scanning if available, and review changes before deployment.
-- The sample CSP allows known analytics/ad sources, though ad vendors can introduce more hosts; test and adjust CSP with the browser console if enabling ads. Avoid broad wildcards where possible.
-- Do not commit credentials or private keys. `.env` is ignored. Anything named `PUBLIC_*` becomes visible to browsers and is **never a secret**.
-- Monitor uptime, Search Console errors, ad policy notices, analytics consent and traffic quality; avoid bot traffic or artificial clicks.
+- Open `/robots.txt`, `/sitemap-index.xml`, `/rss.xml` on the live domain.
+- Verify your DNS domain property in Google Search Console. Submit `https://techmintai.com/sitemap-index.xml` (Astro sitemap index). Inspect the homepage, `/guides/`, representative categories, tools and articles.
+- Set up Bing Webmaster Tools and submit the same sitemap.
+- Confirm canonical addresses, only one main heading per page, unique descriptive titles, relevant internal links, mobile viewport, clean 404 behavior and visible authorship/policy information.
+- Search results are intentionally `noindex`; do not link your canonical site to parameterized search results.
+- The JSON-LD describes visible content: Organization, WebSite, WebPage, Article, BreadcrumbList and calculators as WebApplication. Structured data **does not guarantee** rich results.
+- Avoid fake updates, keyword stuffing, unsupported claims, doorway pages, low-value mass AI content, fake product tests and copied articles.
+
+## 3. Content standards — especially finance
+
+- This is a finance-adjacent publication (money decisions can affect readers). Manually review numerical examples, source links, dates, claims and risk disclosures before a public launch.
+- Show real publisher identity, correction contact and editorial process. Do not claim external expert review or a regulated license unless true.
+- Publish original analyses, spreadsheets, experiments and genuinely helpful worked examples for specific reader questions.
+- Useful topical clusters: budgeting and emergency funds; APY, APR and compounding; fund costs and asset allocation; fraud and account security. Link relevant guides and calculators to one another.
+- Review Google Search Console's actual search queries after indexing and update articles when source information changes materially. Do not change dates just to appear fresh.
+
+## 4. Page speed and usability
+
+- Run PageSpeed Insights on the *deployed* mobile homepage, article page and calculator page; watch LCP, INP and CLS.
+- No web fonts, decorative hero images, React runtime or remote trackers are shipped by default. Local logo is about 5 KB, and OG social image is not rendered on the page.
+- Astro bundles are cacheable by immutable fingerprint. `npm run check:quality` checks page size, largest JS/CSS, canonical/metadata presence and unique headings after `npm run build`.
+- Avoid adding popup ad scripts, autoplay video, heavy third-party widgets or unused analytics tags. Keep ads and affiliate placements unobtrusive and stable in layout.
+- Test keyboard navigation, mobile overflow, calculator validation, screen-reader labeling, and high contrast. Browser visual/interaction verification is still needed after deployment.
+
+## 5. Monetization — only after site readiness
+
+- A working privacy/contact process, genuinely useful original content, actual HTTPS site and easy navigation should precede the AdSense application. AdSense makes an independent approval decision.
+- If approved, set the **real** `PUBLIC_ADSENSE_CLIENT_ID=ca-pub-...`. Build will generate `/ads.txt` with the publisher number, excluding the `ca-` prefix. Never invent an AdSense ID.
+- Ad script remains disabled unless `PUBLIC_ADS_CONSENT_CONFIGURED=true`; **this flag itself is not consent handling**. Set it only after configuring an appropriate consent management platform and confirming current regional requirements (including Google's publisher/CMP rules for applicable EEA/UK/Swiss traffic). Revisit the Privacy page.
+- For affiliates, register directly with programs relevant to genuine reader needs. Place clear disclosures near actual affiliate links and verify terms before recommending products.
+- Do not click your own ads, purchase fake traffic or run incentive schemes.
+
+## 6. Security and maintenance
+
+- Keep the Astro app static: no database, login, upload form or client-side API key is necessary for this content site.
+- Pin a checked-in package lock after generating it in a trusted environment, and review automated dependency upgrades. Dependabot is configured. Enable secret scanning/alerts where available.
+- Never store access tokens in GitHub or website source; `.env` and `.env.*` are ignored, except the example file.
+- Test and monitor live server response headers and browser CSP console when adding analytics, CMP or ads. Don't relax CSP broadly unless technically required.
+- Back up domain registrar login with MFA, use least-privilege GitHub/hosting access, and secure the custom-domain DNS account.
+- Monitor domain renewal, uptime, Google indexing, traffic quality, security advisories and ad-policy notices.
+
+**None of these source files verify your registrar, DNS, live site, Google accounts, ad approval, or future income.**

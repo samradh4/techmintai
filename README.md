@@ -1,40 +1,50 @@
-# TechMintAI
+# TechMintAI — finance and technology journal
 
-An independent English-language publication covering finance, AI, fintech and technology, built as a lightweight static Astro 5 website.
+Production-oriented **static Astro** publication, redesigned as a restrained finance editorial website rather than an app-style landing page.
 
-## Features
-- Responsive editorial site preserving TechMintAI branding
-- 8 sample evergreen guides and 6 category archives
-- 4 on-device financial calculators and private in-browser search
-- SEO metadata, canonical URLs, Article/WebPage/WebApplication JSON-LD, RSS and sitemap
-- About, Contact, Editorial Policy, Privacy, Affiliate Disclosure, Financial Disclaimer and Terms
-- Hosting security headers for Vercel or Netlify, conditional analytics opt-in, AdSense opt-in gate
-- GitHub Actions build/link audit and Dependabot update alerts
+## What's included
 
-## Run locally
+- Original publication masthead, editorial hierarchy, responsive content archives and text-forward article cards
+- 11 evergreen starter guides covering finance, investing, fintech, security, AI and software
+- 4 browser-only financial calculators with formulas, assumptions and limitations
+- Human-readable `/guides/` archive, 6 category pages, on-page article contents and accessible private search
+- Indexable article and tool pages, semantic headings, per-page titles/descriptions/canonicals, Open Graph, Twitter cards, JSON-LD Organization/WebSite/WebPage/Article/BreadcrumbList/WebApplication, RSS and sitemap
+- Trust pages: About, Contact, Editorial Policy, Privacy, Terms, Affiliate Disclosure, Financial Disclaimer
+- No remote fonts, no client-side React, no third-party tracking unless explicitly activated
+- Security headers for Vercel/Netlify, immutable cache for fingerprinted Astro bundles, GitHub Actions build/link/SEO/page-weight audits and Dependabot updates
+
+## Technology and performance
+
+- Astro 5 static output; no runtime server/database/credentials; scripts load only on calculator/search pages or when optional analytics is configured.
+- Paper-white background, system sans and native serif headlines. A static SVG educational chart replaces generic hero images and gradients.
+- `npm run check:quality` audits page SEO, required outputs, build size and JavaScript budgets after building.
+- No AdSense, affiliate account, Google Analytics property, domain DNS setting, or verified contact mailbox is included by default.
+
+## Local commands
+
 ```bash
 npm install
 npm run dev
 npm run build
 npm run check:links
+npm run check:quality
 npm run preview
 ```
 
-Node 20.11+ required; Node 22 recommended.
+Node 22 is recommended. After generating a reviewed `package-lock.json`, use `npm ci` for reproducible installs. Never commit secret credentials or API tokens, and do not place secrets in `PUBLIC_*` variables.
 
-## Deploy
-- Connect this GitHub repository to Vercel or Netlify.
-- Framework: Astro; build command: `npm run build`; output directory: `dist`.
-- Point `techmintai.com` DNS to the host. Ensure https://www.techmintai.com redirects to https://techmintai.com (or the other way around consistently, updating `astro.config.mjs` and `src/config.ts` when changing canonical host).
-- See [`SEO-SETUP.md`](SEO-SETUP.md) for the launch checklist.
+## Domain & hosting
 
-## Monetization is off by default
-- `PUBLIC_GA4_ID` (optional): Google Analytics measurement ID; banner asks permission before loading analytics.
-- `PUBLIC_ADSENSE_CLIENT_ID`: real `ca-pub-` publisher ID after AdSense acceptance; generates an ads.txt line at build time.
-- `PUBLIC_ADS_CONSENT_CONFIGURED=true`: only after compliant consent handling is configured, including an appropriate CMP where required.
-- `PUBLIC_CONTACT_EMAIL`: set only to a **working** public mailbox; ensure mail delivery is tested.
+This source is configured for `https://techmintai.com/`. If you bought a different domain, change `src/config.ts`, `astro.config.mjs`, `public/robots.txt`, `scripts/audit-build.mjs` and the sitemap references before deployment. Use one canonical host, configure HTTPS and redirect the other host. Connect GitHub to Vercel or Netlify (build `npm run build`, output `dist`). DNS and the live deployment are **not** changed by these source edits.
 
-Do not add secrets to `PUBLIC_*` variables. AdSense approval, revenue, keyword rankings and legal compliance are **not guaranteed** by this repository alone.
+## Revenue activation (later)
 
-## Editorial quality
-The sample articles are educational starting material, **not a substitute for publisher review and original research**. Check references, claims and published dates before promotion. For finance and security topics, use authoritative sources and distinguish guidance from individualized professional advice. Add contextual internal links and genuinely useful original examples rather than mass-producing short AI articles.
+1. Activate and test a real contact email, then set `PUBLIC_CONTACT_EMAIL`.
+2. Review the factual accuracy, links, dates, publisher details and original examples before promoting the articles. Finance is a sensitive topic; website code alone does not establish expertise or accuracy.
+3. Connect and verify Google Search Console and Bing Webmaster Tools; submit the generated sitemap.
+4. If desired, connect GA4 with `PUBLIC_GA4_ID=G-...`. GA4 starts only after analytics consent.
+5. Apply for Google AdSense **after** sufficient original content, clear navigation, working contact and verified policy pages. Approval is not guaranteed.
+6. Once approved and compliant, set `PUBLIC_ADSENSE_CLIENT_ID=ca-pub-...`. Set `PUBLIC_ADS_CONSENT_CONFIGURED=true` only **after** implementing and verifying a suitable consent solution for served regions, including a certified CMP where required by Google's publisher policies. A valid `/ads.txt` is generated on rebuild. Ad loading remains disabled by default.
+7. Add only real, clearly disclosed affiliate relationships and original product evaluations. No fake prices, reviews, rankings, or performance guarantees.
+
+Read [SEO-SETUP.md](SEO-SETUP.md) for the hands-on launch checklist.

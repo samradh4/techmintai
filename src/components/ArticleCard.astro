@@ -1,10 +1,14 @@
 ---
 import type { Article } from '../data/articles';
-import {categories} from '../config';
-const {article} = Astro.props as {article:Article};
-const category = categories.find(c=>c.slug===article.category)?.name || article.category;
+import { categories } from '../config';
+const { article } = Astro.props as { article: Article };
+const category = categories.find(c => c.slug === article.category)?.name || article.category;
 ---
 <article class="article-card">
-  <a href={`/articles/${article.slug}/`} aria-label={`Read ${article.title}`} class="thumbnail">{category} / TechMintAI</a>
-  <div class="card-copy"><div class="meta"><span>{category}</span><span aria-hidden="true">·</span><span>{article.readingMinutes} min read</span></div><h3><a href={`/articles/${article.slug}/`}>{article.title}</a></h3><p>{article.excerpt}</p><a href={`/articles/${article.slug}/`} class="text-link">Read article →</a></div>
+  <div class="card-copy">
+    <div class="meta"><a href={`/category/${article.category}/`}>{category}</a><span aria-hidden="true">/</span><span>{article.readingMinutes} min read</span></div>
+    <h3><a href={`/articles/${article.slug}/`}>{article.title}</a></h3>
+    <p>{article.excerpt}</p>
+    <a href={`/articles/${article.slug}/`} class="text-link" aria-label={`Read ${article.title}`}>Read the story <span aria-hidden="true">→</span></a>
+  </div>
 </article>

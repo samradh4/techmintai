@@ -1,12 +1,23 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import {categories} from '../../config';
-import {byCategory} from '../../data/articles';
-export function getStaticPaths(){return categories.map(category=>({params:{slug:category.slug},props:{category}}));}
-const {category}=Astro.props;
-const articles=byCategory(category.slug);
+import { categories, canonical } from '../../config';
+import { byCategory } from '../../data/articles';
+
+export function getStaticPaths(){return categories.map(category => ({params:{slug:category.slug},props:{category}}));}
+const { category } = Astro.props;
+const articles = byCategory(category.slug);
+const jsonLd = {
+  '@type':'BreadcrumbList', itemListElement:[
+    {'@type':'ListItem',position:1,name:'Home',item:canonical('/')},
+    {'@type':'ListItem',position:2,name:category.name,item:canonical(`/category/${category.slug}/`)},
+  ],
+};
 ---
-<Base title={`${category.name} Guides`} description={category.description} path={`/category/${category.slug}/`}>
-  <div class="container"><div class="breadcrumb"><a href="/">Home</a> / {category.name}</div><header class="page-intro"><div class="eyebrow">Explore / {category.name}</div><h1>{category.name} guides</h1><p>{category.description} Every article prioritizes clarity, useful context, and transparent sources.</p></header><section class="section" style="padding-top:10px"><div class="card-grid">{articles.map(article=><ArticleCard article={article}/>)}</div></section></div>
+<Base title={`${category.name}: Guides & Explainers`} description={`${category.description} Read TechMintAI's researched explainers and practical guides.`} path={`/category/${category.slug}/`} jsonLd={jsonLd}>
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / <span>{category.name}</span></div>
+    <header class="page-intro"><span class="eyebrow">The journal / {category.name}</span><h1>{category.name}</h1><p>{category.description} No hype or unrealistic promises—just context, examples and clear limitations.</p></header>
+    <section class="section archive-section" aria-label={`${category.name} articles`}><div class="archive-heading"><span>{articles.length} {articles.length === 1 ? 'guide' : 'guides'}</span><span>TechMintAI / editorial</span></div><div class="card-grid">{articles.map(article => <ArticleCard article={article}/>)}</div></section>
+  </div>
 </Base>

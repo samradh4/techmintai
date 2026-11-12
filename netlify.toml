@@ -10,4 +10,9 @@ for = "/*"
   Referrer-Policy = "strict-origin-when-cross-origin"
   Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
   Strict-Transport-Security = "max-age=31536000"
-  Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; frame-src https://*.google.com https://*.doubleclick.net https://*.googlesyndication.com; upgrade-insecure-requests"
+  Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.googlesyndication.com; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; frame-src https://*.google.com https://*.doubleclick.net https://*.googlesyndication.com; upgrade-insecure-requests"
+
+[[headers]]
+for = "/_astro/*"
+  [headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"

@@ -1,16 +1,23 @@
-name: Build and link audit
+name: Astro build, links & SEO audit
 on:
   push:
     branches: [main]
   pull_request:
 jobs:
-  build:
+  audit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-audit --no-fund
-      - run: npm run build
-      - run: npm run check:links
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build website
+        run: npm run build
+      - name: Check internal links
+        run: npm run check:links
+      - name: Audit SEO & page weight
+        run: npm run check:quality

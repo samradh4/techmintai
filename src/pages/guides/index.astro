@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { articles } from '../../data/articles';
+import { categories } from '../../config';
+---
+<Base title="All Guides: Finance, Investing & Technology" path="/guides/" description="Browse TechMintAI's finance and investing explainers, AI guidance, fintech security articles and technology tutorials.">
+  <div class="container"><div class="breadcrumb"><a href="/">Home</a> / Guides</div><header class="page-intro"><span class="eyebrow">The library</span><h1>All guides & explainers.</h1><p>Our starting collection of practical, source-aware introductions to money and technology. Choose a topic and explore the assumptions behind the decisions.</p></header>
+  {categories.map(category => {const items = articles.filter(article => article.category === category.slug);return <section class="section archive-section" aria-labelledby={`heading-${category.slug}`}><div class="archive-heading"><span>{category.name} · {items.length} {items.length===1?'guide':'guides'}</span><a href={`/category/${category.slug}/`}>Explore topic ↗</a></div><h2 class="archive-section-title" id={`heading-${category.slug}`}>{category.name}</h2><div class="card-grid">{items.map(article=><ArticleCard article={article}/>)}</div></section>})}
+  </div>
+</Base>

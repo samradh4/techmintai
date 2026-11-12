@@ -1,7 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
-import {articles} from '../data/articles';
-import {tools} from '../config';
-const items=[...articles.map(({title,excerpt,slug,category})=>({title,excerpt,url:`/articles/${slug}/`,category})),...tools.map(t=>({title:t.name,excerpt:t.description,url:`/tools/${t.slug}/`,category:'tools'}))];
+import { articles } from '../data/articles';
+import { tools } from '../config';
+const items = [
+  ...articles.map(({title,excerpt,slug,category})=>({title,excerpt,url:`/articles/${slug}/`,category})),
+  ...tools.map(t=>({title:t.name,excerpt:t.description,url:`/tools/${t.slug}/`,category:'tools'})),
+];
 ---
-<Base title="Search TechMintAI" path="/search/" description="Search TechMintAI articles, financial guides and free calculators." robots="noindex,follow"><div class="container"><div class="breadcrumb"><a href="/">Home</a> / Search</div><header class="page-intro"><div class="eyebrow">Find an answer</div><h1>Search TechMintAI.</h1><p>Find articles and calculators. This lightweight search runs privately in your browser.</p></header><label class="visually-hidden" for="search-input">Search guides and tools</label><input class="search-input" type="search" id="search-input" placeholder="Try “compound interest” or “AI”" autocomplete="off" style="max-width:750px;font-size:1.1rem" /><div id="search-results" class="search-results" aria-live="polite"></div><script type="application/json" id="search-dataset" set:html={JSON.stringify(items).replace(/</g,'\\u003c')} /></div><script>import '../scripts/search.js';</script></Base>
+<Base title="Search TechMintAI" path="/search/" description="Search TechMintAI's financial guides, technology explainers and free calculators." robots="noindex,follow">
+  <div class="container"><div class="breadcrumb"><a href="/">Home</a> / Search</div>
+    <header class="page-intro"><span class="eyebrow">Search / The library</span><h1>Find what matters.</h1><p>Search articles and calculators privately in your browser. No account or third-party search service is needed.</p></header>
+    <label class="search-label" for="search-input">Search the library</label>
+    <input class="search-input" type="search" id="search-input" placeholder="Try 'compound interest' or 'investment fees'" autocomplete="off" />
+    <div id="search-results" class="search-results" aria-live="polite"></div>
+    <script type="application/json" id="search-dataset" set:html={JSON.stringify(items).replace(/</g,'\\u003c')} />
+  </div>
+  <script>import '../scripts/search.js';</script>
+</Base>

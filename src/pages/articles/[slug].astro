@@ -1,22 +1,73 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import {articles, relatedTo, type Article} from '../../data/articles';
-import { categories,canonical } from '../../config';
-export function getStaticPaths(){return articles.map((article)=>({params:{slug:article.slug},props:{article}}));}
-const {article}=Astro.props as {article:Article};
-const cat=categories.find(c=>c.slug===article.category)!;
-const url=canonical(`/articles/${article.slug}/`);
-const jsonLd={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.excerpt,datePublished:article.date,mainEntityOfPage:url,author:{'@type':'Organization',name:'TechMintAI Editorial Team'},publisher:{'@type':'Organization',name:'TechMintAI',logo:{'@type':'ImageObject',url:canonical('/techmintai-logo.webp')}},image:canonical('/og-default.png'),articleSection:cat.name,isAccessibleForFree:true};
+import { articles, relatedTo, type Article } from '../../data/articles';
+import { categories, canonical, SITE } from '../../config';
+
+export function getStaticPaths(){
+  return articles.map(article => ({ params: { slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props as { article: Article };
+const cat = categories.find(c => c.slug === article.category)!;
+const url = canonical(`/articles/${article.slug}/`);
+const published = new Date(`${article.date}T12:00:00Z`).toLocaleDateString('en-US', {
+  year:'numeric', month:'long', day:'numeric', timeZone:'UTC'
+});
+const jsonLd = [
+  {
+    '@type': 'Article', '@id': `${url}#article`, headline: article.title,
+    description: article.excerpt, mainEntityOfPage: {'@id': `${url}#webpage`},
+    datePublished: article.date, inLanguage:'en', articleSection: cat.name,
+    author: {'@type':'Organization', name:'TechMintAI Editorial', url: canonical('/about/')},
+    publisher: {'@id': `${SITE.url}/#organization`},
+    image: {'@type':'ImageObject',url:canonical('/og-default.png'),width:1200,height:630},
+    isAccessibleForFree:true,
+  },
+  {
+    '@type':'BreadcrumbList', itemListElement:[
+      {'@type':'ListItem',position:1,name:'Home',item:canonical('/')},
+      {'@type':'ListItem',position:2,name:cat.name,item:canonical(`/category/${cat.slug}/`)},
+      {'@type':'ListItem',position:3,name:article.title,item:url},
+    ]
+  }
+];
 ---
 <Base title={article.title} description={article.excerpt} path={`/articles/${article.slug}/`} type="article" articleDate={article.date} category={cat.name} jsonLd={jsonLd}>
-  <div class="container"><div class="breadcrumb"><a href="/">Home</a> / <a href={`/category/${cat.slug}/`}>{cat.name}</a> / Article</div><div class="reading-layout" style="padding-top:27px"><article><header class="article-hero"><span class="pill">{cat.name}</span><h1>{article.title}</h1><p class="deck">{article.excerpt}</p><div class="byline">By TechMintAI Editorial Team · Published <time datetime={article.date}>{new Date(`${article.date}T12:00:00Z`).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}</time> · {article.readingMinutes} min read</div></header>
-  <div class="article-prose"><section class="key-points" aria-label="Key takeaways"><h2>In short</h2><ul>{article.takeaways.map(point=><li>{point}</li>)}</ul></section>
-  {article.blocks.map(block=><section><h2>{block.heading}</h2>{block.paragraphs.map(p=><p>{p}</p>)}{block.bullets && <ul>{block.bullets.map(item=><li>{item}</li>)}</ul>}</section>)}
-  <h2>Further reading and sources</h2><p>These institutions provide helpful background material. Links are supplied for reader verification; inclusion does not imply endorsement.</p><ul class="source-list">{article.sources.map(s=><li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label} ↗</a></li>)}</ul>
-  <p>Explore related guides in <a class="text-link" href={`/category/${cat.slug}/`}>{cat.name}</a>, compare estimates using our <a class="text-link" href="/tools/">free calculators</a>, and learn how we check and update articles in the <a class="text-link" href="/editorial-policy/">editorial policy</a>.</p>
-  <div class="disclaimer-note">TechMintAI publishes general educational information. This article is not personalized financial, investment, legal or cybersecurity advice. Always assess your circumstances and local rules.</div></div></article>
-  <aside class="sidebar"><h2>Explore more</h2><p>Independent, plain-English guides to money and technology.</p>{relatedTo(article).map(a=><a href={`/articles/${a.slug}/`}>{a.title} →</a>)}<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"/><a href="/tools/">Try the free tools →</a><a href="/affiliate-disclosure/">How this site earns money →</a></aside></div>
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href={`/category/${cat.slug}/`}>{cat.name}</a> / <span>Guide</span></div>
+    <div class="reading-layout article-reading">
+      <article>
+        <header class="article-hero">
+          <a class="pill" href={`/category/${cat.slug}/`}>{cat.name}</a>
+          <h1>{article.title}</h1>
+          <p class="deck">{article.excerpt}</p>
+          <div class="byline">By <a href="/about/">TechMintAI Editorial</a> <span aria-hidden="true">·</span> Published <time datetime={article.date}>{published}</time> <span aria-hidden="true">·</span> {article.readingMinutes} minute read</div>
+        </header>
+        <div class="article-prose">
+          <section class="key-points" aria-labelledby="takeaways-title"><h2 id="takeaways-title">Key takeaways</h2><ul>{article.takeaways.map(point => <li>{point}</li>)}</ul></section>
+          {article.blocks.map((block,index) => <section aria-labelledby={`section-${index+1}`}>
+            <h2 id={`section-${index+1}`}>{block.heading}</h2>
+            {block.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+            {block.bullets && <ul>{block.bullets.map(bullet => <li>{bullet}</li>)}</ul>}
+          </section>)}
+          <section aria-labelledby="sources-heading">
+            <h2 id="sources-heading">Sources and further reading</h2>
+            <p>For additional context, these official or institutional resources can help you verify important definitions and rules. Their inclusion does not mean they reviewed this article.</p>
+            <ul class="source-list">{article.sources.map(source => <li><a href={source.url} rel="noopener noreferrer" target="_blank">{source.label} <span aria-hidden="true">↗</span></a></li>)}</ul>
+          </section>
+          <p>For a related example, explore <a href="/tools/">our financial calculators</a>. You can also read <a href="/editorial-policy/">our editorial policy</a> to understand our sourcing and corrections approach.</p>
+          <div class="disclaimer-note"><strong>Important:</strong> This content is general educational information, not individualized investment, tax, legal or security advice. Financial rules vary by country, and examples do not predict real-world outcomes.</div>
+        </div>
+      </article>
+      <aside class="sidebar">
+        <h2>In this guide</h2>
+        <nav aria-label="Article contents">
+          {article.blocks.map((block,index) => <a href={`#section-${index+1}`}>{block.heading}</a>)}
+          <a href="#sources-heading">Sources and further reading</a>
+        </nav>
+        <div class="sidebar-extra"><h2>Keep reading</h2>{relatedTo(article).slice(0,2).map(related => <a href={`/articles/${related.slug}/`}>{related.title} ↗</a>)}</div>
+      </aside>
+    </div>
   </div>
-  <section class="section alt"><div class="container"><div class="section-head"><div><div class="eyebrow">Keep exploring</div><h2>Related reading</h2></div></div><div class="card-grid">{relatedTo(article).map(a=><ArticleCard article={a}/>)}</div></div></section>
+  <section class="section alt"><div class="container"><div class="section-head"><div><span class="eyebrow">Continue reading</span><h2>More from TechMintAI</h2></div></div><div class="card-grid">{relatedTo(article).map(related => <ArticleCard article={related}/>)}</div></div></section>
 </Base>
