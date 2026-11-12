@@ -3,7 +3,7 @@ export const SITE = {
   url: 'https://techmintai.com',
   tagline: 'Smarter money. Better technology.',
   description: 'Clear, practical guides to personal finance, artificial intelligence, fintech and useful technology.',
-  contact: import.meta.env.PUBLIC_CONTACT_EMAIL || 'hello@techmintai.com',
+  contact: import.meta.env.PUBLIC_CONTACT_EMAIL || 'techmintaicom@gmail.com',
 };
 export const categories = [
   { slug: 'finance', name: 'Finance', description: 'Budget, save and make informed money decisions.' },
