@@ -15,5 +15,5 @@ const items = [
     <div id="search-results" class="search-results" aria-live="polite"></div>
     <script type="application/json" id="search-dataset" set:html={JSON.stringify(items).replace(/</g,'\\u003c')} />
   </div>
-  <script>import '../scripts/search.js';</script>
+  <script src="/js/search.js" defer></script>
 </Base>
