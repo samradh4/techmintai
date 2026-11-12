@@ -15,12 +15,6 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Capture generated lockfile for reproducible installs
-        run: |
-          echo "TECHMINT_LOCK_BEGIN"
-          base64 -w0 package-lock.json
-          echo
-          echo "TECHMINT_LOCK_END"
       - name: Build website
         run: npm run build
       - name: Check internal links
