@@ -6,10 +6,13 @@ on:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -22,3 +25,5 @@ jobs:
         run: npm run check:links
       - name: Audit SEO & page weight
         run: npm run check:quality
+      - name: Audit browser security and published files
+        run: npm run check:security

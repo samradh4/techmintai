@@ -7,3 +7,14 @@ dist/
 .DS_Store
 .vercel/
 .netlify/
+# Local credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.p8
+*.jks
+*.keystore
+credentials.json
+service-account*.json
+.npmrc

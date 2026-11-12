@@ -48,3 +48,7 @@ This source is configured for `https://techmintai.com/`. If you bought a differe
 7. Add only real, clearly disclosed affiliate relationships and original product evaluations. No fake prices, reviews, rankings, or performance guarantees.
 
 Read [SEO-SETUP.md](SEO-SETUP.md) for the hands-on launch checklist.
+
+## Security files and checks
+
+See [SECURITY.md](SECURITY.md) to report a vulnerability privately and [docs/SECURITY-DEPLOYMENT.md](docs/SECURITY-DEPLOYMENT.md) for the live-host checklist. Vercel/Netlify headers are configured in their respective files. The built site includes `/.well-known/security.txt` and CI runs `npm run check:security`. GitHub Actions also runs weekly production dependency audits; the repo does **not** claim to be invulnerable.

@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "check:links": "node scripts/check-links.mjs",
-    "check:quality": "node scripts/audit-build.mjs"
+    "check:quality": "node scripts/audit-build.mjs",
+    "check:security": "node scripts/check-security.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

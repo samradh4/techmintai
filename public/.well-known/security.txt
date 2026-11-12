@@ -1,0 +1,4 @@
+Contact: https://techmintai.com/contact/
+Expires: 2027-11-13T00:00:00Z
+Canonical: https://techmintai.com/.well-known/security.txt
+Preferred-Languages: en
