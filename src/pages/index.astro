@@ -1,58 +1,138 @@
 ---
 import Base from '../layouts/Base.astro';
-import ArticleCard from '../components/ArticleCard.astro';
 import { articles } from '../data/articles';
 import { tools } from '../config';
+import '../styles/home.css';
 
-const lead = articles.find(a => a.slug === 'compound-interest-explained')!;
-const highlights = ['build-an-emergency-fund','etfs-vs-mutual-funds','recognize-digital-payment-scams']
-  .map(slug => articles.find(a => a.slug === slug)!);
-const feed = articles.filter(a => a.slug !== lead.slug).slice(0,6);
-
-// Fixed-rate *illustration*, not market data. Monthly contributions at the end of each month.
-const projection = (years: number) => {
-  const months = years * 12;
-  const monthlyRate = .05 / 12;
-  return 1000 * Math.pow(1 + monthlyRate, months) + 100 * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+const find = (slug: string) => articles.find(a => a.slug === slug)!;
+const lead = find('compound-interest-explained');
+const quickReads = [
+  find('build-an-emergency-fund'),
+  find('etfs-vs-mutual-funds'),
+  find('recognize-digital-payment-scams'),
+];
+const stories = [
+  find('zero-based-budget-guide'),
+  find('investment-fees-compound-over-time'),
+  find('apr-vs-apy-explained'),
+];
+const moreGuides = [
+  find('ai-budgeting-apps-guide'),
+  find('password-managers-and-passkeys'),
+  find('ai-agents-vs-chatbots'),
+  find('automate-small-business-workflows'),
+];
+const categoryLabel: Record<string,string> = {
+  finance: 'Personal Finance', investing: 'Investing', fintech: 'Fintech',
+  ai: 'Artificial Intelligence', technology: 'Technology', software: 'Software'
 };
-const x = (year: number) => 44 + (year / 20) * 466;
-const y = (value: number) => 251 - value / 48000 * 206;
-const growthPath = Array.from({length:21},(_,yr) => `${yr === 0 ? 'M' : 'L'}${x(yr).toFixed(1)} ${y(projection(yr)).toFixed(1)}`).join(' ');
-const savingsPath = Array.from({length:21},(_,yr) => `${yr === 0 ? 'M' : 'L'}${x(yr).toFixed(1)} ${y(1000 + 100 * 12 * yr).toFixed(1)}`).join(' ');
+// Illustrative fixed assumptions, not a live rate, prediction or investment guarantee.
+// Contributions happen at the end of each month.
+const value = (years: number) => {
+  const months = years * 12;
+  const monthlyRate = 0.05 / 12;
+  return 1000 * Math.pow(1 + monthlyRate, months) + 100 * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+};
+const x = (year: number) => 50 + (year / 20) * 470;
+const y = (amount: number) => 235 - (amount / 48000) * 178;
+const growth = Array.from({length:21},(_,year) => `${year===0?'M':'L'}${x(year).toFixed(1)} ${y(value(year)).toFixed(1)}`).join(' ');
+const deposits = Array.from({length:21},(_,year) => `${year===0?'M':'L'}${x(year).toFixed(1)} ${y(1000+100*12*year).toFixed(1)}`).join(' ');
+const finalValue = value(20);
 ---
-<Base path="/" description="TechMintAI publishes practical personal finance and investing explainers, fintech and technology guides, plus free financial calculators.">
+<Base path="/" description="Independent personal finance, investing and financial technology guides. Understand the numbers, compare your options and use free financial calculators.">
   <div class="container">
-    <div class="edition-line"><span class="eyebrow">The TechMintAI Journal</span><span>Personal finance / Investing / Technology</span></div>
-    <section class="lead-grid" aria-labelledby="frontpage-title">
-      <article class="lead-story">
-        <div class="story-meta"><span class="eyebrow">The big guide</span><span class="story-separator"></span><a href="/category/finance/">Personal Finance</a></div>
-        <h1 id="frontpage-title"><a href={`/articles/${lead.slug}/`}>The quiet power of <em>compound interest.</em></a></h1>
-        <p class="lead-deck">Saving doesn't need to be complicated. Learn how regular contributions, time and assumptions influence what your money could become.</p>
-        <div class="lead-actions"><a class="editorial-link" href={`/articles/${lead.slug}/`}>Read the full guide <span aria-hidden="true">↗</span></a><span>{lead.readingMinutes} min read · Educational guide</span></div>
-        <figure class="chart-feature" aria-labelledby="chart-title chart-caption">
-          <div class="chart-heading"><div><span class="eyebrow">An illustrative example</span><h2 id="chart-title">What consistency can add up to</h2></div><span class="chart-unit">USD</span></div>
-          <svg viewBox="0 0 552 300" role="img" aria-label="Line chart showing an illustrative deposit of $1,000 plus $100 monthly over 20 years at 5% annual interest, compared with contributions alone.">
-            <g class="gridlines"><line x1="44" y1={y(0)} x2="510" y2={y(0)}/><line x1="44" y1={y(20000)} x2="510" y2={y(20000)}/><line x1="44" y1={y(40000)} x2="510" y2={y(40000)}/></g>
-            <g class="chart-labels"><text x="1" y={y(0)+4}>$0</text><text x="1" y={y(20000)+4}>$20k</text><text x="1" y={y(40000)+4}>$40k</text><text x="43" y="273">0</text><text x={x(10)-7} y="273">10y</text><text x={x(20)-12} y="273">20y</text></g>
-            <path d={savingsPath} class="chart-contributions"/><path d={growthPath} class="chart-growth"/>
-            <circle cx={x(20)} cy={y(projection(20))} r="4.5" fill="#156c57" stroke="#fff" stroke-width="2"/>
-          </svg>
-          <figcaption id="chart-caption"><span class="chart-legend"><span class="legend-green"></span>Balance at hypothetical 5% fixed rate</span><span class="chart-legend"><span class="legend-gray"></span>Contributions only</span><small>$1,000 initial + $100/month. No fees, taxes or inflation. This is not a forecast.</small></figcaption>
-        </figure>
-      </article>
-      <aside class="front-page-aside" aria-label="Featured reading">
-        <div class="aside-title"><span class="eyebrow">Worth a closer look</span><span>01 — 03</span></div>
-        {highlights.map((article, index) => <article class="aside-story"><div class="aside-number">0{index+1}</div><div><div class="meta"><span>{article.category === 'finance' ? 'PERSONAL FINANCE' : article.category.toUpperCase()}</span><span>{article.readingMinutes} MIN</span></div><h2><a href={`/articles/${article.slug}/`}>{article.title}</a></h2><p>{article.excerpt}</p></div></article>)}
-        <a class="aside-bottom" href="/guides/">Browse the complete library <span aria-hidden="true">↗</span></a>
-      </aside>
+    <div class="home-edition" aria-label="Publication introduction">
+      <div class="edition-kicker"><span class="edition-symbol" aria-hidden="true">✳</span><span>The TechMintAI Journal <span class="kicker-divider">/</span> The money issue</span></div>
+      <div class="edition-explainer">A clearer perspective on money, investing & the technology around it.</div>
+    </div>
+  </div>
+
+  <div class="container cover-container">
+    <section class="cover-story" aria-labelledby="cover-heading">
+      <div class="cover-copy">
+        <div class="cover-topline"><span class="cover-marker"></span><span>THE BIG PICTURE</span><span class="cover-issue">01 / PERSONAL FINANCE</span></div>
+        <h1 id="cover-heading">Make your money <em>work with time.</em></h1>
+        <p>A clear example shows how time, small contributions and assumptions can shape the outcome of a long-term savings plan.</p>
+        <a class="cover-cta" href={`/articles/${lead.slug}/`}>Read the full story <span aria-hidden="true">↗</span></a>
+        <div class="cover-byline"><span>THE EXPLAINER SERIES</span><span>07 MIN READ</span><span>EDUCATIONAL, NOT ADVICE</span></div>
+      </div>
+      <div class="cover-visual">
+        <div class="visual-head"><span>FIGURE 001 <span class="visual-divider">—</span> COMPOUNDING, VISUALIZED</span><span>20 YEARS</span></div>
+        <div class="visual-number"><span>$</span>{(finalValue/1000).toFixed(1)}<span>k</span><small>Illustrative ending balance</small></div>
+        <svg class="cover-chart" viewBox="0 0 565 277" role="img" aria-labelledby="cover-chart-title cover-chart-desc">
+          <title id="cover-chart-title">Illustrative savings growth at a fixed annual return</title>
+          <desc id="cover-chart-desc">A hypothetical $1,000 initial deposit plus $100 each month for 20 years. A fixed annual 5% rate compounded monthly grows to about $43,816, compared with $25,000 deposited. Excludes fees, tax and inflation and is not a prediction.</desc>
+          <defs><linearGradient id="cover-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#226f56" stop-opacity=".22"/><stop offset="1" stop-color="#226f56" stop-opacity="0"/></linearGradient></defs>
+          <g class="cover-chart-grid"><line x1="50" x2="520" y1={y(40000)} y2={y(40000)}/><line x1="50" x2="520" y1={y(20000)} y2={y(20000)}/><line x1="50" x2="520" y1={y(0)} y2={y(0)}/></g>
+          <g class="cover-chart-labels"><text x="4" y={y(40000)+4}>$40k</text><text x="4" y={y(20000)+4}>$20k</text><text x="25" y={y(0)+4}>$0</text><text x="50" y="266">YEAR 0</text><text x="272" y="266">10</text><text x="487" y="266">20</text></g>
+          <path d={`${growth} L${x(20)} ${y(0)} L${x(0)} ${y(0)} Z`} fill="url(#cover-fill)" />
+          <path d={deposits} stroke="#889d91" stroke-width="2.5" stroke-dasharray="5 6" fill="none"/>
+          <path d={growth} stroke="#166747" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx={x(20)} cy={y(finalValue)} r="6" fill="#166747" stroke="#e6ebdf" stroke-width="4"/>
+        </svg>
+        <div class="visual-legend"><span><i class="legend-line"></i> Hypothetical balance</span><span><i class="legend-dash"></i> Deposits only</span></div>
+        <div class="visual-assumptions"><div><strong>$1,000</strong><span>Starting amount</span></div><div><strong>$100</strong><span>Added monthly</span></div><div><strong>5%</strong><span>Fixed annual rate*</span></div></div>
+        <p class="visual-footnote">*Illustration only. No fees, taxes, inflation or variable returns. Not a forecast.</p>
+      </div>
     </section>
   </div>
 
-  <div class="section-directory"><div class="container directory-inner"><span class="directory-label">Explore a subject</span><nav aria-label="Browse categories"><a href="/category/finance/">Money</a><a href="/category/investing/">Investing</a><a href="/category/fintech/">Fintech</a><a href="/category/ai/">Artificial intelligence</a><a href="/category/technology/">Security & tech</a><a href="/category/software/">Software</a></nav></div></div>
+  <section class="now-reading-section" aria-labelledby="now-reading-title">
+    <div class="container">
+      <div class="section-label-line"><span class="eyebrow" id="now-reading-title">ON THE READING DESK</span><span class="section-count">THREE ESSENTIAL STARTING POINTS</span></div>
+      <div class="now-reading-grid">
+        {quickReads.map((article, index) => (
+          <a class="now-reading-card" href={`/articles/${article.slug}/`}>
+            <span class="reading-index">0{index + 1}</span>
+            <span class="reading-content"><span class="reading-topic">{categoryLabel[article.category]} <span class="topic-dot">·</span> {article.readingMinutes} min read</span><strong>{article.title}</strong><span class="reading-desc">{article.excerpt}</span><span class="reading-arrow" aria-hidden="true">↗</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <section class="section" aria-labelledby="library-title"><div class="container"><div class="section-head"><div><span class="eyebrow">The reading list</span><h2 id="library-title">Guides to think with.</h2></div><p>Our starting collection focuses on the decisions, risks and everyday questions behind money and technology.</p></div><div class="card-grid">{feed.map(article => <ArticleCard article={article}/>)}</div><div class="section-link"><a href="/guides/" class="editorial-link">Explore every article <span aria-hidden="true">↗</span></a></div></div></section>
+  <div class="topic-strip"><div class="container topic-strip-inner"><span>FIND YOUR NEXT READ</span><nav aria-label="Browse subjects"><a href="/category/finance/">Money</a><a href="/category/investing/">Investing</a><a href="/category/fintech/">Fintech</a><a href="/category/ai/">Artificial intelligence</a><a href="/category/technology/">Digital security</a><a href="/category/software/">Software</a></nav></div></div>
 
-  <section class="tools-section" aria-labelledby="tools-title"><div class="container tools-section-layout"><div class="tools-intro"><span class="eyebrow">Practical tools / free to use</span><h2 id="tools-title">Run the numbers.<br/><em>Then decide.</em></h2><p>These simple calculators let you test assumptions without handing over your personal financial information. Your inputs stay in your browser.</p><a class="editorial-link" href="/tools/">Visit all calculators <span aria-hidden="true">↗</span></a></div><div class="tools-table">{tools.map((tool,index) => <a href={`/tools/${tool.slug}/`} class="tools-table-row"><span class="tool-index">0{index+1}</span><span><strong>{tool.name}</strong><small>{tool.description}</small></span><span class="table-arrow" aria-hidden="true">↗</span></a>)}</div></div></section>
+  <section class="features-section" aria-labelledby="features-heading">
+    <div class="container">
+      <div class="feature-section-head"><div><span class="eyebrow">THE EDITOR'S NOTEBOOK</span><h2 id="features-heading">The details that <em>change the decision.</em></h2></div><p>Clear explanations of the little things that have a real impact on everyday financial decisions.</p></div>
+      <div class="feature-grid">
+        <a class="illustrated-feature budget-feature" href={`/articles/${stories[0].slug}/`}>
+          <div class="feature-art feature-art-budget" aria-hidden="true">
+            <div class="budget-art-label">YOUR MONEY, A CLEARER PLAN</div>
+            <div class="budget-art-rows"><span><i></i>Needs<b></b></span><span><i></i>Goals<b></b></span><span><i></i>Everything else<b></b></span></div>
+            <div class="budget-art-stamp">01 / BUDGETING</div>
+          </div>
+          <div class="feature-content"><span class="feature-meta">PERSONAL FINANCE <span>·</span> 8 MIN</span><h3>Give every dollar a job. Keep every decision in view.</h3><p>{stories[0].excerpt}</p><span class="feature-read">Read the guide <span aria-hidden="true">↗</span></span></div>
+        </a>
+        <a class="illustrated-feature fees-feature" href={`/articles/${stories[1].slug}/`}>
+          <div class="feature-art feature-art-fees" aria-hidden="true">
+            <span class="fees-art-title">A SMALL FEE <br /> ISN'T ALWAYS SMALL.</span>
+            <div class="fees-bars"><div><i></i><span>FEES</span></div><div><i></i><span>TIME</span></div></div>
+            <div class="fees-art-foot">THE LONG-TERM COST OF INVESTING</div>
+          </div>
+          <div class="feature-content"><span class="feature-meta">INVESTING <span>·</span> 9 MIN</span><h3>The small investing fee that deserves a second look.</h3><p>{stories[1].excerpt}</p><span class="feature-read">Read the guide <span aria-hidden="true">↗</span></span></div>
+        </a>
+        <a class="illustrated-feature rates-feature" href={`/articles/${stories[2].slug}/`}>
+          <div class="feature-art feature-art-rates" aria-hidden="true"><div class="rates-topline">NOMINAL INTEREST VS. EFFECTIVE YIELD</div><div class="rates-big">5.00<span>%</span><span class="rates-arrow">→</span>5.12<span>%</span></div><div class="rates-bottom">ILLUSTRATION: 5% NOMINAL, COMPOUNDED MONTHLY</div></div>
+          <div class="feature-content"><span class="feature-meta">PERSONAL FINANCE <span>·</span> 8 MIN</span><h3>APR, APY and the difference between two rates.</h3><p>{stories[2].excerpt}</p><span class="feature-read">Read the guide <span aria-hidden="true">↗</span></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <section class="section" aria-labelledby="standards-title"><div class="container standards-layout"><div><span class="eyebrow">Behind the publication</span><h2 id="standards-title">Good financial information has to show its working.</h2></div><div class="standards-copy"><p>We explain assumptions, link to relevant primary resources and distinguish educational examples from personal recommendations. Financial information deserves more than a confident headline.</p><div class="standards-links"><a href="/editorial-policy/">Our editorial standards ↗</a><a href="/affiliate-disclosure/">How TechMintAI may earn money ↗</a><a href="/about/">About the publication ↗</a></div></div></div></section>
+  <section class="tool-spotlight" aria-labelledby="tools-heading">
+    <div class="container tool-spotlight-grid">
+      <div class="tool-spotlight-lead"><span class="tool-eyebrow"><span class="tool-status"></span> THE TOOLKIT / 004</span><h2 id="tools-heading">Less guessing.<br/><em>More clarity.</em></h2><p>Make the assumptions yours. Explore payment plans, savings goals and long-term growth with free calculators that run in your browser.</p><a href="/tools/" class="light-button">Explore the toolkit <span aria-hidden="true">↗</span></a><span class="tool-privacy">NO ACCOUNT REQUIRED <span>•</span> INPUTS STAY ON YOUR DEVICE</span></div>
+      <div class="tool-spotlight-entries">{tools.map((tool,index)=>(<a href={`/tools/${tool.slug}/`} class="tool-spotlight-entry"><span class="tool-number">0{index+1}</span><span><strong>{tool.name}</strong><small>{tool.description}</small></span><span class="tool-entry-arrow" aria-hidden="true">↗</span></a>))}</div>
+    </div>
+  </section>
+
+  <section class="latest-section" aria-labelledby="latest-heading">
+    <div class="container"><div class="latest-heading-row"><div><span class="eyebrow">THE READING ROOM</span><h2 id="latest-heading">Go a little <em>deeper.</em></h2></div><a href="/guides/" class="latest-browse">View all guides <span aria-hidden="true">↗</span></a></div><div class="latest-grid">
+      {moreGuides.map((article,index)=>(<a href={`/articles/${article.slug}/`} class="latest-item"><span class="latest-item-index">0{index+1} / {categoryLabel[article.category]}</span><h3>{article.title}</h3><p>{article.excerpt}</p><span class="latest-more">{article.readingMinutes} MIN READ <span aria-hidden="true">↗</span></span></a>))}
+    </div></div>
+  </section>
+
+  <section class="publisher-promise"><div class="container publisher-grid"><div><span class="eyebrow">WHY WE PUBLISH</span><h2>In finance, being clear matters more than being loud.</h2></div><div><p>We explain our assumptions, link to primary resources where practical, and keep educational guidance separate from individualized recommendations. We’d rather show the working than promise a shortcut.</p><div class="publisher-links"><a href="/editorial-policy/">Editorial standards ↗</a><a href="/affiliate-disclosure/">How we earn ↗</a><a href="/about/">About TechMintAI ↗</a></div></div></div></section>
 </Base>
