@@ -1,0 +1,35 @@
+name: Temporary Astro upgrade validation
+on:
+  push:
+    branches: [security-upgrade]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve patched dependencies and refresh lock
+        run: npm install --package-lock-only --no-audit --no-fund
+      - name: Capture lock for verified migration
+        run: |
+          echo "TECHMINT_LOCK_BEGIN"
+          base64 -w0 package-lock.json
+          echo
+          echo "TECHMINT_LOCK_END"
+      - name: Install lockfile
+        run: npm ci --no-audit --no-fund
+      - name: Build and audit static output
+        run: |
+          npm run build
+          npm run check:links
+          npm run check:quality
+          npm run check:security
+      - name: Check high/critical production vulnerabilities
+        run: npm audit --omit=dev --audit-level=high
