@@ -1,0 +1,71 @@
+
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base
+  title="Samradh Joshi — Founder of TechMintAI"
+  path="/author/"
+  description="Meet Samradh Joshi, founder and publisher of TechMintAI, an independent publication covering finance, AI, fintech and technology."
+>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / Author
+    </div>
+
+    <header class="page-intro">
+      <span class="eyebrow">Behind TechMintAI</span>
+      <h1>Samradh Joshi.</h1>
+      <p>Founder &amp; Publisher of TechMintAI</p>
+    </header>
+
+    <div class="legal">
+      <h2>About Samradh</h2>
+      <p>
+        I'm Samradh Joshi, a developer and Bachelor of Computer
+        Applications student with an interest in technology,
+        artificial intelligence, fintech and financial education.
+      </p>
+      <p>
+        I founded TechMintAI to make complicated topics easier
+        to understand through accessible explanations, practical
+        guides and interactive tools.
+      </p>
+
+      <h2>What I work on</h2>
+      <p>
+        My background includes web development, software projects
+        and exploring AI-powered tools. At TechMintAI, my role
+        includes overseeing the publication and its technical
+        development.
+      </p>
+
+      <h2>Editorial principles</h2>
+      <p>
+        TechMintAI aims to explain concepts clearly, use reliable
+        sources, identify assumptions and correct mistakes when
+        they are discovered. Published content should be reviewed
+        for accuracy rather than treated as personalized advice.
+      </p>
+
+      <p>
+        Read our <a href="/editorial-policy/">editorial policy</a>
+        to learn more.
+      </p>
+
+      <h2>Financial disclaimer</h2>
+      <p>
+        I am not a licensed financial adviser. TechMintAI provides
+        educational information, not personalized financial,
+        investment, tax or legal advice.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        For corrections, feedback and editorial inquiries:
+        <a href={`mailto:${SITE.contact}`}>{SITE.contact}</a>.
+      </p>
+    </div>
+  </div>
+</Base>
