@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE, canonical } from '../config';
+import Analytics from '@vercel/analytics/astro';
 
 const {
   title,
@@ -139,5 +140,6 @@ const serializedSchema = JSON.stringify({'@context':'https://schema.org','@graph
       <div class="cookie-banner" id="analytics-consent" hidden><strong>Optional analytics</strong><p>We only load analytics if you choose to allow it. <a href="/privacy/">Read our privacy policy.</a></p><div class="cookie-actions"><button type="button" class="accept" data-consent="accept">Allow analytics</button><button type="button" class="decline" data-consent="decline">Not now</button></div></div>
       <script src="/js/consent.js" defer></script>
     </>}
+    <Analytics />
   </body>
 </html>
