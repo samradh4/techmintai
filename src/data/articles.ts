@@ -147,6 +147,236 @@ export const articles: Article[] = [
     ],
     sources:[{label:'U.S. Securities and Exchange Commission — Investor.gov',url:'https://www.investor.gov/'},{label:'Financial Industry Regulatory Authority — Investor Insights',url:'https://www.finra.org/investors'}]
   },
+  {
+    "slug": "what-is-vibe-coding",
+    "title": "What Is Vibe Coding? How AI Is Changing Software Development",
+    "category": "ai",
+    "date": "2026-11-24",
+    "readingMinutes": 6,
+    "excerpt": "What is vibe coding? Discover how AI coding tools work, what beginners can build, and the practical benefits and risks of AI-generated code.",
+    "takeaways": [
+      "Vibe coding uses natural-language instructions to generate and revise software with AI.",
+      "AI can accelerate prototypes but does not remove the need for testing and secure engineering.",
+      "Vibe coding and careful, code-reviewed AI-assisted development are not necessarily the same thing."
+    ],
+    "blocks": [
+      {
+        "heading": "What is vibe coding?",
+        "paragraphs": [
+          "Vibe coding is an AI-assisted way to develop software by describing a goal in everyday language and relying heavily on a coding model to generate or change the code. Instead of writing each line yourself, you guide the outcome by describing features and asking for revisions.",
+          "For example, you might ask: “Create a modern personal finance dashboard with expense tracking, charts, and dark mode.” A coding tool can generate a starting application based on that request. The next prompt might ask it to add a mobile layout or fix a broken chart.",
+          "The term is used informally. Not every developer using AI autocomplete is vibe coding: many still inspect, understand, test and modify every generated change."
+        ]
+      },
+      {
+        "heading": "How AI-powered coding works",
+        "paragraphs": [
+          "A typical workflow starts with a prompt, an initial codebase or code change, a running preview and several rounds of testing and refinement. Some tools can read project files, run commands or suggest changes across multiple components, depending on their capabilities and permissions.",
+          "Good prompts describe what the app is for, who will use it, what information it handles and how success should be tested. For a finance dashboard, it matters whether the charts display sample data or real account information."
+        ]
+      },
+      {
+        "heading": "Popular AI coding tools",
+        "paragraphs": [
+          "Well-known examples include Cursor, GitHub Copilot, Replit Agent, Windsurf and Claude Code. These tools differ: some offer suggestions inside an editor, while others help plan, generate and run broader development tasks.",
+          "Features, prices, available models and privacy terms may change. Check each product's current documentation before uploading private code, customer data or credentials."
+        ]
+      },
+      {
+        "heading": "Can beginners build apps without coding?",
+        "paragraphs": [
+          "AI tools can help beginners prototype websites, dashboards, simple utilities and proof-of-concept applications without writing every component manually. This can make experimentation and learning more approachable.",
+          "A prototype that works in a demonstration is not automatically safe to publish. Production apps still need error handling, authentication, authorization, accessibility checks, secure configuration and maintenance. Beginners benefit from learning enough coding fundamentals to recognize and fix mistakes."
+        ]
+      },
+      {
+        "heading": "Benefits and risks",
+        "paragraphs": [
+          "Speed is the main attraction: AI can automate boilerplate, provide working examples and help turn an idea into a testable prototype. It is also useful to professional developers when they review its output.",
+          "The risk is accepting unfamiliar code without understanding what it does. AI-generated applications may contain insecure defaults, invented dependencies, missing edge cases or incorrect calculations. Never paste sensitive passwords or API keys into an untrusted prompt, and do not deploy payment-related code without appropriate review."
+        ],
+        "bullets": [
+          "Test every important user journey, including failure cases.",
+          "Inspect external packages, permissions and data handling.",
+          "Keep working versions so generated mistakes can be reverted.",
+          "Use human review for security-sensitive features and financial calculations."
+        ]
+      },
+      {
+        "heading": "Is vibe coding the future?",
+        "paragraphs": [
+          "AI-assisted coding is likely to remain part of software development, but different projects need different levels of oversight. A personal prototype and a production service handling payments or medical information should not have the same release standards.",
+          "Bottom line: AI makes software creation more accessible, but knowing how to evaluate, debug and maintain generated code is still essential."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub Docs — Copilot",
+        "url": "https://docs.github.com/en/copilot"
+      },
+      {
+        "label": "OWASP — Top 10 for Large Language Model Applications",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      }
+    ]
+  },
+  {
+    "slug": "wifi-7-vs-wifi-6",
+    "title": "Wi-Fi 7 vs Wi-Fi 6: What's the Difference and Should You Upgrade?",
+    "category": "technology",
+    "date": "2026-11-24",
+    "readingMinutes": 7,
+    "excerpt": "Wi-Fi 7 vs Wi-Fi 6 explained: compare channel width, modulation, latency, Multi-Link Operation, device compatibility and router upgrade value.",
+    "takeaways": [
+      "Wi-Fi 7 adds support for 320 MHz channels, 4096-QAM and Multi-Link Operation.",
+      "The benefits depend on compatible devices, signal quality and regional spectrum availability.",
+      "A strong Wi-Fi 6 setup is still sufficient for many everyday uses."
+    ],
+    "blocks": [
+      {
+        "heading": "What is Wi-Fi 7?",
+        "paragraphs": [
+          "Wi-Fi 7 is the consumer name for the IEEE 802.11be wireless networking generation, following Wi-Fi 6 (IEEE 802.11ax). It is designed to offer higher potential wireless throughput and improved handling of demanding connections.",
+          "Its enhancements include wider channels, higher-order modulation and technology allowing compatible devices to use multiple wireless links. Those capabilities are not guaranteed to improve every connection."
+        ]
+      },
+      {
+        "heading": "Wi-Fi 7 vs Wi-Fi 6: the differences",
+        "paragraphs": [
+          "Wi-Fi 6 supports channels as wide as 160 MHz and 1024-QAM modulation. Wi-Fi 7 can support channels as wide as 320 MHz and 4096-QAM modulation, together with Multi-Link Operation (MLO). Its theoretical maximum throughput is therefore higher.",
+          "These figures describe technical capabilities, not promised real-world speeds. Wider channels depend on spectrum, compatible clients and suitable interference conditions."
+        ],
+        "bullets": [
+          "Maximum channel width: Wi-Fi 6 — 160 MHz; Wi-Fi 7 — 320 MHz.",
+          "Highest supported modulation: Wi-Fi 6 — 1024-QAM; Wi-Fi 7 — 4096-QAM.",
+          "Multi-Link Operation: not a Wi-Fi 6 feature; included in Wi-Fi 7.",
+          "Real speed and latency: depend on devices, radio conditions and the surrounding network."
+        ]
+      },
+      {
+        "heading": "What is Multi-Link Operation?",
+        "paragraphs": [
+          "MLO allows compatible Wi-Fi 7 devices to establish connections using multiple wireless links. Depending on the device and implementation, this can improve throughput, latency consistency or reliability.",
+          "Not all devices use the same links simultaneously, and results will vary by network. MLO cannot fix slow internet access or a distant game server."
+        ]
+      },
+      {
+        "heading": "Do you need 6 GHz and a new device?",
+        "paragraphs": [
+          "Wi-Fi 7's widest 320 MHz channels are associated with access to suitable 6 GHz spectrum, which is not available everywhere. Availability and permitted channel widths vary by region. Wi-Fi 6E can also operate on 6 GHz, so 6 GHz alone is not unique to Wi-Fi 7.",
+          "A Wi-Fi 7 router can generally serve older Wi-Fi devices, but those clients do not automatically gain Wi-Fi 7-specific capabilities. Check both the router and client specifications before upgrading."
+        ]
+      },
+      {
+        "heading": "Does Wi-Fi 7 improve gaming?",
+        "paragraphs": [
+          "A compatible Wi-Fi 7 setup may offer better performance when local wireless traffic is heavy. That could help gaming or large local transfers, especially in a busy home.",
+          "Internet latency also depends on your broadband provider, routing, congestion and the game server. Replacing the router will not necessarily reduce ping. Wired Ethernet may still be more predictable for stationary gaming systems."
+        ]
+      },
+      {
+        "heading": "Should you upgrade?",
+        "paragraphs": [
+          "Consider Wi-Fi 7 if you have compatible devices, high-throughput local workloads or wireless congestion that a newer setup can address. Evaluate router placement, access-point coverage and costs first.",
+          "For browsing, video calls, routine streaming and remote work, a reliable Wi-Fi 6 network may already be sufficient. Bottom line: Wi-Fi 7 has real technical advances, but upgrading only makes sense when your equipment and use case can benefit."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "Wi-Fi Alliance — Wi-Fi CERTIFIED 7",
+        "url": "https://www.wi-fi.org/discover-wi-fi/wi-fi-certified-7"
+      },
+      {
+        "label": "Wi-Fi Alliance — Wi-Fi technology",
+        "url": "https://www.wi-fi.org/discover-wi-fi"
+      }
+    ]
+  },
+  {
+    "slug": "what-are-stablecoins-usdt-usdc",
+    "title": "What Are Stablecoins? How USDT and USDC Work, Explained for Beginners",
+    "category": "fintech",
+    "date": "2026-11-24",
+    "readingMinutes": 8,
+    "excerpt": "What are stablecoins? Learn how USDT and USDC seek to track the US dollar, why people use digital-dollar tokens and their important risks.",
+    "takeaways": [
+      "Stablecoins aim to hold a value relative to a reference asset, commonly the US dollar, but can lose their peg.",
+      "USDT and USDC have different issuers, reserve arrangements, redemption terms and risks.",
+      "A stablecoin is not the same as an insured bank deposit or a guaranteed dollar balance."
+    ],
+    "blocks": [
+      {
+        "heading": "What is a stablecoin?",
+        "paragraphs": [
+          "A stablecoin is a cryptocurrency designed to maintain its value relative to another asset, often a traditional currency such as the US dollar. A dollar-pegged stablecoin generally aims to trade around $1 per token.",
+          "Unlike Bitcoin, which has no fixed price target, stablecoins are intended to reduce fluctuations relative to their reference. Their price stability is an objective, not a guarantee; their market value can move above or below the target."
+        ]
+      },
+      {
+        "heading": "What are USDT and USDC?",
+        "paragraphs": [
+          "USDT, often called Tether, is a dollar-pegged token issued by Tether. USDC, or USD Coin, is a dollar-pegged token issued by Circle. Both are used for cryptocurrency trading and blockchain-based transfers.",
+          "The two products should not be treated as interchangeable: reserve reporting, redemption rights, supported blockchain networks, eligibility requirements and counterparty risks can differ. Read each issuer's current disclosures and terms. Direct redemption may be subject to additional conditions, so buying on an exchange is not the same as depositing money in a bank."
+        ]
+      },
+      {
+        "heading": "How do stablecoins maintain their value?",
+        "paragraphs": [
+          "Some stablecoins are supported by reserves, which may include cash and short-term financial instruments. Others rely on different collateral or stabilization mechanisms. The details differ by token.",
+          "Stability depends on reserve quality, the issuer's operations, redemption arrangements, liquidity and market confidence. During stress, the market price can still deviate from its intended peg."
+        ]
+      },
+      {
+        "heading": "Why are stablecoins important?",
+        "paragraphs": [
+          "Stablecoins may be used for international transfers, crypto trading, digital payments, compatible wallet transfers and blockchain-based financial services. They may make some transactions more convenient, but there are practical costs and limitations.",
+          "Network fees, conversion rates, access to banking, identity checks and local regulations can affect whether a transaction is useful or economical. On-chain payments can be hard or impossible to reverse."
+        ],
+        "bullets": [
+          "Trading or moving value on supported crypto platforms.",
+          "Sending funds between compatible digital wallets.",
+          "Some cross-border payment and settlement services.",
+          "Blockchain-based applications where the user understands the risks."
+        ]
+      },
+      {
+        "heading": "Are stablecoins safe?",
+        "paragraphs": [
+          "Stablecoins can lose their peg and expose holders to inadequate reserves, issuer failure, market illiquidity, phishing, hacked wallets, custodial problems and regulatory changes. Users can also lose funds through sending tokens to an incorrect address or incompatible network.",
+          "Stablecoin holdings do not automatically receive the deposit protection available to eligible bank accounts. Avoid assuming a digital token carries the same guarantees as an insured deposit. Product and legal protections vary by country."
+        ],
+        "bullets": [
+          "Peg risk: tokens may trade below their target value.",
+          "Reserve and issuer risk: redemption or backing can fail.",
+          "Custody risk: private keys, exchanges and wallet security matter.",
+          "Regulatory risk: legal treatment and consumer protection differ by location."
+        ]
+      },
+      {
+        "heading": "Will stablecoins replace traditional banking?",
+        "paragraphs": [
+          "Stablecoins could play a role in digital payment infrastructure, especially certain international transfers. Their future depends on consumer protection, technical reliability, regulatory clarity and integration with existing financial systems.",
+          "Bottom line: stablecoins may be useful for transferring digital value, but it is essential to understand a token's backing, redemption terms and risks before using it. This is educational information, not a recommendation to buy a token."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "Circle — USDC issuer information",
+        "url": "https://www.circle.com/usdc"
+      },
+      {
+        "label": "Tether — reserve transparency information",
+        "url": "https://tether.to/en/transparency/"
+      },
+      {
+        "label": "Investor.gov — investor education",
+        "url": "https://www.investor.gov/"
+      }
+    ]
+  }
 ];
 export const byCategory = (category: string) => articles.filter((article) => article.category === category);
 export const relatedTo = (article: Article) => [...articles.filter(a => a.category === article.category && a.slug !== article.slug),...articles.filter(a => a.category !== article.category)].slice(0,3);
