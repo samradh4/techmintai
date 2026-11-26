@@ -18,5 +18,6 @@ export const tools = [
   {slug:'monthly-investment',name:'Monthly Investment Calculator',description:'Project long-term savings from recurring monthly contributions.',emoji:'◷'},
   {slug:'loan-payment',name:'Loan Payment Calculator',description:'Estimate fixed monthly loan payments, interest and repayment totals.',emoji:'▤'},
   {slug:'savings-goal',name:'Savings Goal Calculator',description:'Estimate the monthly deposit needed to reach a future target.',emoji:'◎'},
+  {slug:'investment-fees',name:'Investment Fee Impact Calculator',description:'Compare how two different annual investment fees can affect a hypothetical long-term balance.',emoji:'⇄'},
 ];
 export const canonical = (path: string) => new URL(path.replace(/^\/+/, ''), SITE.url + '/').toString();
