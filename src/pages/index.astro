@@ -123,7 +123,7 @@ const finalValue = value(20);
 
   <section class="tool-spotlight" aria-labelledby="tools-heading">
     <div class="container tool-spotlight-grid">
-      <div class="tool-spotlight-lead"><span class="tool-eyebrow"><span class="tool-status"></span> THE TOOLKIT / 004</span><h2 id="tools-heading">Less guessing.<br/><em>More clarity.</em></h2><p>Make the assumptions yours. Explore payment plans, savings goals and long-term growth with free calculators that run in your browser.</p><a href="/tools/" class="light-button">Explore the toolkit <span aria-hidden="true">↗</span></a><span class="tool-privacy">NO ACCOUNT REQUIRED <span>•</span> INPUTS STAY ON YOUR DEVICE</span></div>
+      <div class="tool-spotlight-lead"><span class="tool-eyebrow"><span class="tool-status"></span> THE TOOLKIT / {String(tools.length).padStart(3,'0')}</span><h2 id="tools-heading">Less guessing.<br/><em>More clarity.</em></h2><p>Make the assumptions yours. Explore payment plans, savings goals and long-term growth with free calculators that run in your browser.</p><a href="/tools/" class="light-button">Explore the toolkit <span aria-hidden="true">↗</span></a><span class="tool-privacy">NO ACCOUNT REQUIRED <span>•</span> INPUTS STAY ON YOUR DEVICE</span></div>
       <div class="tool-spotlight-entries">{tools.map((tool,index)=>(<a href={`/tools/${tool.slug}/`} class="tool-spotlight-entry"><span class="tool-number">0{index+1}</span><span><strong>{tool.name}</strong><small>{tool.description}</small></span><span class="tool-entry-arrow" aria-hidden="true">↗</span></a>))}</div>
     </div>
   </section>
