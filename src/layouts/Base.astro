@@ -18,6 +18,9 @@ const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Practical 
 const url = canonical(path);
 const ogImage = canonical('/og-default.png');
 const ga4Id = import.meta.env.PUBLIC_GA4_ID || '';
+// Session recordings are limited to editorial pages; never capture calculator or search inputs.
+const clarityId = /^\/(?:$|articles\/|category\/|guides\/?$)/.test(path) ? 'zjwxtjygy6' : '';
+const hasAnalytics = /^G-[A-Z0-9]+$/.test(ga4Id) || !!clarityId;
 const adClient = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '';
 const adsConsentConfigured = import.meta.env.PUBLIC_ADS_CONSENT_CONFIGURED === 'true';
 const showAds = /^ca-pub-\d+$/.test(adClient) && adsConsentConfigured;
@@ -42,7 +45,7 @@ const graph = [organization, website, webpage, ...additional.map(item => {
 const serializedSchema = JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c');
 ---
 <!doctype html>
-<html lang="en" data-ga4-id={/^G-[A-Z0-9]+$/.test(ga4Id) ? ga4Id : ''}>
+<html lang="en" data-ga4-id={/^G-[A-Z0-9]+$/.test(ga4Id) ? ga4Id : ''} data-clarity-id={clarityId}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,7 +79,7 @@ const serializedSchema = JSON.stringify({'@context':'https://schema.org','@graph
     <script type="application/ld+json" set:html={serializedSchema} />
     {showAds && <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`} crossorigin="anonymous" />}
   </head>
-  <body>
+  <body data-clarity-mask={clarityId ? 'true' : undefined}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
       <div class="masthead-strip">
@@ -134,11 +137,11 @@ const serializedSchema = JSON.stringify({'@context':'https://schema.org','@graph
             <nav class="footer-links" aria-label="Site policies"><a href="/about/">About us</a><a href="/contact/">Contact</a><a href="/editorial-policy/">Editorial standards</a><a href="/privacy/">Privacy policy</a><a href="/affiliate-disclosure/">How we earn</a><a href="/financial-disclaimer/">Financial disclaimer</a><a href="/terms/">Terms</a><a href="/search/">Search</a></nav>
           </div>
         </div>
-        <div class="footer-bottom"><span>© {new Date().getFullYear()} TechMintAI. All rights reserved.</span><span>Made for curious readers, not trading signals.</span></div>
+        <div class="footer-bottom"><span>© {new Date().getFullYear()} TechMintAI. All rights reserved.</span><span>Made for curious readers, not trading signals.</span>{hasAnalytics && <button type="button" class="privacy-choices" id="privacy-choices">Privacy choices</button>}</div>
       </div>
     </footer>
-    {/^G-[A-Z0-9]+$/.test(ga4Id) && <>
-      <div class="cookie-banner" id="analytics-consent" hidden><strong>Optional analytics</strong><p>We only load analytics if you choose to allow it. <a href="/privacy/">Read our privacy policy.</a></p><div class="cookie-actions"><button type="button" class="accept" data-consent="accept">Allow analytics</button><button type="button" class="decline" data-consent="decline">Not now</button></div></div>
+    {hasAnalytics && <>
+      <div class="cookie-banner" id="analytics-consent" hidden><strong>Optional analytics</strong><p>With your permission, we use Google Analytics and Microsoft Clarity (masked session recordings and heatmaps on editorial pages only) to understand and improve the site. These are optional and do not enable advertising. <a href="/privacy/">Read our privacy policy.</a></p><div class="cookie-actions"><button type="button" class="accept" data-consent="accept">Allow analytics</button><button type="button" class="decline" data-consent="decline">Decline analytics</button></div></div>
       <script src="/js/consent.js" defer></script>
     </>}
   </body>
