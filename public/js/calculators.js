@@ -27,6 +27,16 @@ if(form){
       const target=get('target');
       const needed=Math.max(0,(target-grow(P))/(Math.abs(r)<1e-10?n:(Math.pow(1+r,n)-1)/r));
       items=[['Required monthly savings',needed],['Estimated starting balance at goal date',grow(P)],['Target',target]];
+    }else if(typ==='investment-fees'){
+      // Approximate monthly net rates: assumed nominal annual return minus annual fee, divided by 12.
+      // Contributions are added at month end, and the same gross return applies to both funds.
+      const project=(fee)=>{
+        const net=r-fee/100/12,base=1+net;
+        const growth=Math.pow(base,n);
+        return P*growth + (Math.abs(net)<1e-10 ? m*n : m*(growth-1)/net);
+      };
+      const fundA=project(get('feeA')),fundB=project(get('feeB'));
+      items=[['Fund A projected value',fundA],['Fund B projected value',fundB],['Difference: A minus B',fundA-fundB]];
     }
     if(items.some(x=>!Number.isFinite(x[1])||Math.abs(x[1])>1e16)){error.hidden=false;error.textContent='This combination gives an impractically large result. Please use smaller inputs.';output.replaceChildren();return;}
     const wrap=document.createElement('div');wrap.className='results';
