@@ -7,6 +7,15 @@ import { byCategory } from '../../data/articles';
 export function getStaticPaths(){return categories.map(category => ({params:{slug:category.slug},props:{category}}));}
 const { category } = Astro.props;
 const articles = byCategory(category.slug);
+const introductions: Record<string, string> = {
+  finance: 'Explore budgeting, emergency savings and interest rates with worked examples and free calculators.',
+  investing: 'Compare investment concepts, fund structures and fees without assuming guaranteed returns.',
+  fintech: 'Understand digital payments, fraud prevention and how financial technology works.',
+  ai: 'Compare AI tools for budgeting, coding and business tasks, including their accuracy and privacy limits.',
+  technology: 'Understand Wi-Fi standards, account security, passwords and passkeys before upgrading your tools.',
+  software: 'Start with repeatable workflows, then compare rule-based automation and AI assistants. Learn how to protect customer data and measure whether a tool actually saves time.',
+};
+const introduction = introductions[category.slug] ?? category.description;
 const jsonLd = {
   '@type':'BreadcrumbList', itemListElement:[
     {'@type':'ListItem',position:1,name:'Home',item:canonical('/')},
@@ -17,7 +26,7 @@ const jsonLd = {
 <Base title={`${category.name}: Guides & Explainers`} description={`${category.description} Read TechMintAI's researched explainers and practical guides.`} path={`/category/${category.slug}/`} jsonLd={jsonLd}>
   <div class="container">
     <div class="breadcrumb"><a href="/">Home</a> / <span>{category.name}</span></div>
-    <header class="page-intro"><span class="eyebrow">The journal / {category.name}</span><h1>{category.name}</h1><p>{category.description} No hype or unrealistic promises—just context, examples and clear limitations.</p></header>
-    <section class="section archive-section" aria-label={`${category.name} articles`}><div class="archive-heading"><span>{articles.length} {articles.length === 1 ? 'guide' : 'guides'}</span><span>TechMintAI / editorial</span></div><div class="card-grid">{articles.map(article => <ArticleCard article={article}/>)}</div></section>
+    <header class="page-intro"><span class="eyebrow">The journal / {category.name}</span><h1>{category.name}</h1><p>{introduction}</p></header>
+    <section class="section archive-section" aria-label={`${category.name} articles`}><div class="archive-heading"><span>{articles.length} {articles.length === 1 ? 'guide' : 'guides'}</span><span>TechMintAI / editorial</span></div><h2 class="visually-hidden">{category.name} guides</h2><div class="card-grid">{articles.map(article => <ArticleCard article={article}/>)}</div></section>
   </div>
 </Base>
