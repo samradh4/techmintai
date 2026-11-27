@@ -1,13 +1,13 @@
 export type ArticleBlock = { heading: string; paragraphs: string[]; bullets?: string[] };
 export type Article = {
-  slug: string; title: string; category: string; excerpt: string; date: string;
+  slug: string; title: string; seoTitle?: string; category: string; excerpt: string; date: string; modifiedDate?: string;
   readingMinutes: number; featured?: boolean; takeaways: string[]; blocks: ArticleBlock[];
   sources: {label:string; url:string}[];
 };
 const date = '2026-11-13';
 export const articles: Article[] = [
   {
-    slug:'compound-interest-explained', title:'Compound Interest Explained: How Small Contributions Grow Over Time', category:'finance', date, readingMinutes:7, featured:true,
+    slug:'compound-interest-explained', seoTitle: "Compound Interest Explained | TechMintAI", title:'Compound Interest Explained: How Small Contributions Grow Over Time', category:'finance', date, readingMinutes:7, featured:true,
     excerpt:'Learn the difference between simple and compound interest, see an example, and understand what a calculator can and cannot predict.',
     takeaways:['Compound interest earns returns on both your starting balance and previously earned interest.','How often interest compounds, fees, contributions and time all affect results.','A calculator is an illustration, not a promise of future returns.'],
     blocks:[
@@ -20,7 +20,7 @@ export const articles: Article[] = [
     sources:[{label:'U.S. Securities and Exchange Commission — Investor.gov',url:'https://www.investor.gov/'},{label:'Consumer Financial Protection Bureau — Consumer Tools',url:'https://www.consumerfinance.gov/consumer-tools/'}]
   },
   {
-    slug:'build-an-emergency-fund', title:'How to Build an Emergency Fund Without Overcomplicating It', category:'finance', date, readingMinutes:6,
+    slug:'build-an-emergency-fund', seoTitle: "How to Build an Emergency Fund | TechMintAI", title:'How to Build an Emergency Fund Without Overcomplicating It', category:'finance', date, readingMinutes:6,
     excerpt:'A straightforward system for setting a savings target, choosing where to keep it, and building a cash buffer over time.',
     takeaways:['Emergency savings are for unexpected, necessary expenses.','Start with a manageable milestone before trying to reach a longer-term reserve.','Keep the fund accessible and separate from everyday spending.'],
     blocks:[
@@ -32,7 +32,7 @@ export const articles: Article[] = [
     ], sources:[{label:'Consumer Financial Protection Bureau — Saving',url:'https://www.consumerfinance.gov/consumer-tools/'},{label:'Federal Deposit Insurance Corporation',url:'https://www.fdic.gov/'}]
   },
   {
-    slug:'etfs-vs-mutual-funds', title:'ETFs vs Mutual Funds: What Actually Matters to Beginners?', category:'investing', date, readingMinutes:7,
+    slug:'etfs-vs-mutual-funds', seoTitle: "ETFs vs Mutual Funds: A Beginner Guide | TechMintAI", title:'ETFs vs Mutual Funds: What Actually Matters to Beginners?', category:'investing', date, readingMinutes:7,
     excerpt:'Understand structure, costs, diversification and the practical differences between exchange-traded funds and mutual funds.',
     takeaways:['Both vehicles can hold diversified portfolios; the label alone does not determine risk.','Compare strategy, fees, taxes, trading mechanics and local rules.','Neither ETF nor mutual fund status guarantees positive returns.'],
     blocks:[
@@ -44,31 +44,31 @@ export const articles: Article[] = [
     ], sources:[{label:'Investor.gov — Investment Products',url:'https://www.investor.gov/introduction-investing/investing-basics/investment-products'},{label:'FINRA — Investor Insights',url:'https://www.finra.org/investors'}]
   },
   {
-    slug:'ai-budgeting-apps-guide', title:'AI Budgeting Apps: What They Can Actually Do for Your Money', category:'ai', date, readingMinutes:7, featured:true,
+    slug:'ai-budgeting-apps-guide', seoTitle: "AI Budgeting Apps: Benefits and Risks | TechMintAI", title:'AI Budgeting Apps: What They Can Actually Do for Your Money', category:'ai', date, modifiedDate:'2026-11-27', readingMinutes:7, featured:true,
     excerpt:'AI-powered budgeting can organize spending and flag patterns, but accuracy, privacy and human judgment still matter.',
     takeaways:['AI budgeting features are useful for categorization, summaries and pattern detection.','Automatic categories can be wrong; confirm important transactions yourself.','Never share banking passwords with an untrusted third-party app.'],
     blocks:[
       {heading:'What makes a budgeting app “AI-powered”?',paragraphs:['Budgeting apps traditionally group transactions into categories and compare spending with goals. Some now add language-based search, personalized summaries or models that suggest classifications and identify unusual trends.','These features can reduce manual work, but “AI” is not a guarantee of superior results. The actual value depends on coverage of your accounts, how the app handles corrections and whether its suggestions improve your choices.']},
-      {heading:'Three useful tasks',paragraphs:['First, automated categorization can group transactions into essentials, discretionary spending and savings. Second, natural-language summaries can answer questions such as “How much did subscriptions cost last month?” Third, pattern detection may highlight repeated charges or a category that increased unexpectedly.','None of these features replaces checking your original bank statement. Mislabelled transfers, refunds and shared expenses can create misleading trends.']},
+      {heading:'Three useful tasks',paragraphs:['First, automated categorization can group transactions into essentials, discretionary spending and savings. Second, natural-language summaries can answer questions such as “How much did subscriptions cost last month?” Third, pattern detection may highlight repeated charges or a category that increased unexpectedly.','None of these features replaces checking your original bank statement. Mislabelled transfers, refunds and shared expenses can create misleading trends.','Illustrative example: a monthly statement shows $120 in groceries, a $60 refund and a $200 transfer to savings. If an app treats all outgoing money as spending and ignores the refund, its summary can show $320 of spending instead of $60 net grocery spending. Check how the app classifies transfers and refunds before relying on the total.']},
       {heading:'Privacy questions to ask before connecting accounts',paragraphs:['Find out whether the app connects through a regulated financial-data provider or asks for sensitive credentials directly. Read what data the company collects, who receives it, how long it is retained and how to delete it.','Check whether transaction data may be used to train AI models and what opt-out controls exist. Assess who is permitted to access connected accounts, whether access can be revoked and what happens to previously collected information. The words “encrypted” or “AI secure” by themselves do not explain how data is handled.']},
       {heading:'How to evaluate a tool',paragraphs:['Try a small sample first. Compare automated classifications with real statements, correct mistakes, and evaluate whether the export and deletion features work. Avoid paying for vague promises when the features you need might be available without AI.'],bullets:['Clear pricing and cancellation terms.','Account connection and data deletion controls.','Reasonable accuracy for your own spending.','Easy export if you switch apps.']},
       {heading:'The sensible bottom line',paragraphs:['Treat AI as an assistant for organizing information, not as a financial adviser. It can help reveal patterns, but decisions about debt, saving and investing still require your goals and circumstances.']},
     ], sources:[{label:'Consumer Financial Protection Bureau — Privacy and Data',url:'https://www.consumerfinance.gov/'},{label:'NIST — AI Risk Management Framework',url:'https://www.nist.gov/itl/ai-risk-management-framework'}]
   },
   {
-    slug:'ai-agents-vs-chatbots', title:'AI Agents vs Chatbots: A Practical Guide for Small Teams', category:'ai', date, readingMinutes:6,
+    slug:'ai-agents-vs-chatbots', seoTitle: "AI Agents vs Chatbots: Key Differences | TechMintAI", title:'AI Agents vs Chatbots: A Practical Guide for Small Teams', category:'ai', date, modifiedDate:'2026-11-27', readingMinutes:6,
     excerpt:'Learn where conversational assistants end and task-taking agents begin, including the guardrails a business should require.',
     takeaways:['A chatbot usually responds; an agent may take multi-step actions using tools.','The more an AI system can change, the more oversight and permissions it needs.','Start with a narrow, measurable workflow rather than full autonomy.'],
     blocks:[
       {heading:'What is the difference?',paragraphs:['A chatbot primarily handles conversation: answering common questions, helping navigate content or collecting information. An AI agent is typically designed to pursue a goal through one or more steps and may call tools, inspect results and take actions.','The boundary is not strict. A chatbot that searches a document repository or creates a ticket may have agent-like capabilities. Evaluate what the system can do, rather than trusting the marketing label.']},
-      {heading:'Useful small-business examples',paragraphs:['A support bot can answer shipping questions from a verified policy document. A more capable agent might check order status and create a draft refund request, but sensitive steps should require human confirmation.','For sales operations, an assistant might summarize inbound enquiries and label them by topic. Before it sends messages or updates customer records, check accuracy, opt-in and access controls.']},
+      {heading:'Useful small-business examples',paragraphs:['A support bot can answer shipping questions from a verified policy document. A more capable agent might check order status and create a draft refund request, but sensitive steps should require human confirmation.','For sales operations, an assistant might summarize inbound enquiries and label them by topic. Before it sends messages or updates customer records, check accuracy, opt-in and access controls.','Illustrative example: a small retailer wants to answer 40 common order-status questions. Start with a chatbot using approved FAQs, then test a read-only order lookup for verified customers. For the next pilot, let an agent draft a refund request for staff review rather than issuing refunds itself. Compare correct answers, unnecessary escalations and unauthorized action attempts before expanding access.']},
       {heading:'Risks teams overlook',paragraphs:['An AI system can misunderstand a request, fabricate facts or follow malicious instructions hidden inside external content. Connecting it to email, payments or a customer database expands the impact of mistakes.','Limit permissions, keep audit logs, redact unnecessary personal information and require approval for high-impact actions. Treat messages and documents retrieved from outside the system as untrusted input; an instruction embedded in a customer email must not override the assistant’s operating rules. Test with bad inputs, incomplete records and unauthorized requests—not only ideal demos.']},
       {heading:'How to start safely',paragraphs:['Choose a repetitive, low-risk task with a clear success measure. Document the process, assemble approved knowledge sources, and deploy a read-only pilot before allowing changes to live systems.'],bullets:['Restrict accessible tools to the minimum necessary.','Use human approval for financial or customer-facing changes.','Track failures, escalation and data retention.','Create a straightforward off switch.']},
       {heading:'Measure outcomes, not novelty',paragraphs:['A useful system should save time or improve quality without introducing unacceptable errors. Compare against your existing process and stop if the costs of oversight outweigh the gains.']},
     ], sources:[{label:'NIST — AI Risk Management Framework',url:'https://www.nist.gov/itl/ai-risk-management-framework'},{label:'OWASP — Large Language Model Applications',url:'https://owasp.org/www-project-top-10-for-large-language-model-applications/'}]
   },
   {
-    slug:'recognize-digital-payment-scams', title:'How to Verify a Digital Payment Request and Avoid Scams', category:'fintech', date, readingMinutes:9,
+    slug:'recognize-digital-payment-scams', seoTitle: "How to Verify a Digital Payment Request and Avoid Scams", title:'How to Verify a Digital Payment Request and Avoid Scams', category:'fintech', date, modifiedDate:'2026-11-24', readingMinutes:9,
     excerpt:'Before sending money, learn how to verify a payment request, spot phishing and fake disbursement messages, and respond if you have already paid.',
     takeaways:['Independently verify the recipient and payment details using contact information you found yourself.','Unexpected digital-disbursement, refund or account-verification messages can be phishing attempts.','If you sent money or exposed login details, contact your provider immediately and report the incident through an official channel.'],
     blocks:[
@@ -82,7 +82,7 @@ export const articles: Article[] = [
     sources:[{label:'U.S. Federal Trade Commission — Consumer Advice',url:'https://consumer.ftc.gov/'},{label:'FTC — ReportFraud.gov',url:'https://reportfraud.ftc.gov/'},{label:'India — National Cyber Crime Reporting Portal',url:'https://cybercrime.gov.in/'}]
   },
   {
-    slug:'password-managers-and-passkeys', title:'Password Managers and Passkeys: A Simple Security Upgrade', category:'technology', date, readingMinutes:6,
+    slug:'password-managers-and-passkeys', seoTitle: "Password Managers vs Passkeys: A Guide | TechMintAI", title:'Password Managers and Passkeys: A Simple Security Upgrade', category:'technology', date, readingMinutes:6,
     excerpt:'Understand strong passwords, passkeys, multi-factor authentication and how to avoid common account-security mistakes.',
     takeaways:['Unique passwords limit damage from credential reuse.','Passkeys can reduce phishing risk when implemented correctly.','Secure account recovery and strong device access remain important.'],
     blocks:[
@@ -94,7 +94,7 @@ export const articles: Article[] = [
     ], sources:[{label:'CISA — Secure Our World',url:'https://www.cisa.gov/secure-our-world'},{label:'FIDO Alliance — Passkeys',url:'https://fidoalliance.org/passkeys/'}]
   },
   {
-    slug:'automate-small-business-workflows', title:'Five Small-Business Workflows Worth Automating First', category:'software', date, readingMinutes:7,
+    slug:'automate-small-business-workflows', seoTitle: "5 Small-Business Workflows to Automate | TechMintAI", title:'Five Small-Business Workflows Worth Automating First', category:'software', date, readingMinutes:7,
     excerpt:'Start with useful automations that reduce manual work without giving software more access than it needs.',
     takeaways:['Start with reliable, repeated tasks—not everything at once.','Keep customer data accurate and permissioned.','Measure time saved and error rates after launch.'],
     blocks:[
@@ -109,7 +109,7 @@ export const articles: Article[] = [
   },
 
   {
-    slug:'apr-vs-apy-explained', title:'APR vs APY: Understand the Difference Before You Borrow or Save', category:'finance', date, readingMinutes:8,
+    slug:'apr-vs-apy-explained', seoTitle: "APR vs APY: What's the Difference? | TechMintAI", title:'APR vs APY: Understand the Difference Before You Borrow or Save', category:'finance', date, readingMinutes:8,
     excerpt:'APR and APY are not interchangeable. A clear explanation with a worked compounding example and the questions worth asking a bank.',
     takeaways:['APY includes the effect of compounding over a year; a quoted annual interest rate may not.','Borrowing APR may include certain costs, so comparing loans requires looking at the applicable disclosure.','Use the same time period, product terms and assumptions when comparing quoted rates.'],
     blocks:[
@@ -122,7 +122,7 @@ export const articles: Article[] = [
     sources:[{label:'Consumer Financial Protection Bureau — Consumer Tools',url:'https://www.consumerfinance.gov/consumer-tools/'},{label:'Federal Deposit Insurance Corporation — Consumer Resource Center',url:'https://www.fdic.gov/consumer-resource-center'}]
   },
   {
-    slug:'zero-based-budget-guide', title:'Zero-Based Budgeting: A Step-by-Step Example That Adds Up', category:'finance', date, readingMinutes:8,
+    slug:'zero-based-budget-guide', seoTitle: "Zero-Based Budgeting: Step-by-Step Example | TechMintAI", title:'Zero-Based Budgeting: A Step-by-Step Example That Adds Up', category:'finance', date, readingMinutes:8,
     excerpt:'Give every unit of income a purpose, including saving and debt payments. A simple, editable method with a full example budget.',
     takeaways:['A zero-based budget gives all available income an assigned job instead of requiring you to spend it all.','Savings and extra debt payments count as allocations, not failures to budget.','Review your actual spending and adapt the plan when conditions change.'],
     blocks:[
@@ -135,7 +135,7 @@ export const articles: Article[] = [
     sources:[{label:'Consumer Financial Protection Bureau — Budgeting',url:'https://www.consumerfinance.gov/consumer-tools/'},{label:'Federal Trade Commission — Consumer Advice',url:'https://consumer.ftc.gov/'}]
   },
   {
-    slug:'investment-fees-compound-over-time', title:'Investment Fees Explained: Why a Small Expense Ratio Can Matter', category:'investing', date, readingMinutes:9,
+    slug:'investment-fees-compound-over-time', seoTitle: "Investment Fees: How Expense Ratios Add Up | TechMintAI", title:'Investment Fees Explained: Why a Small Expense Ratio Can Matter', category:'investing', date, readingMinutes:9,
     excerpt:'Compare two hypothetical funds and see how recurring fees can reduce long-term investment value, even when the percentage looks small.',
     takeaways:['An expense ratio is an annual fund operating cost expressed as a percentage of assets.','Repeated fees reduce the amount left to compound over time.','Fees matter, but risk, diversification, strategy and taxes also matter when selecting investments.'],
     blocks:[
@@ -148,7 +148,7 @@ export const articles: Article[] = [
     sources:[{label:'U.S. Securities and Exchange Commission — Investor.gov',url:'https://www.investor.gov/'},{label:'Financial Industry Regulatory Authority — Investor Insights',url:'https://www.finra.org/investors'}]
   },
   {
-    "slug": "what-is-vibe-coding",
+    "slug": "what-is-vibe-coding", seoTitle: "What Is Vibe Coding? A Beginner Guide | TechMintAI",
     "title": "What Is Vibe Coding? How AI Is Changing Software Development",
     "category": "ai",
     "date": "2026-11-24",
@@ -222,7 +222,7 @@ export const articles: Article[] = [
     ]
   },
   {
-    "slug": "wifi-7-vs-wifi-6",
+    "slug": "wifi-7-vs-wifi-6", seoTitle: "Wi-Fi 7 vs Wi-Fi 6: Should You Upgrade? | TechMintAI",
     "title": "Wi-Fi 7 vs Wi-Fi 6: What's the Difference and Should You Upgrade?",
     "category": "technology",
     "date": "2026-11-24",
@@ -295,7 +295,7 @@ export const articles: Article[] = [
     ]
   },
   {
-    "slug": "what-are-stablecoins-usdt-usdc",
+    "slug": "what-are-stablecoins-usdt-usdc", seoTitle: "What Are Stablecoins? USDT and USDC Explained | TechMintAI",
     "title": "What Are Stablecoins? How USDT and USDC Work, Explained for Beginners",
     "category": "fintech",
     "date": "2026-11-24",

@@ -4,6 +4,7 @@ import { SITE, canonical } from '../config';
 
 const {
   title,
+  seoTitle,
   description = SITE.description,
   path = Astro.url.pathname,
   type = 'website',
@@ -75,7 +76,7 @@ const serializedSchema = JSON.stringify({'@context':'https://schema.org','@graph
     {type === 'article' && articleDate && <meta property="article:published_time" content={articleDate} />}
     {type === 'article' && modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
     {type === 'article' && category && <meta property="article:section" content={category} />}
-    <title>{pageTitle}</title>
+    <title>{seoTitle ?? pageTitle}</title>
     <script type="application/ld+json" set:html={serializedSchema} />
     {showAds && <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`} crossorigin="anonymous" />}
   </head>

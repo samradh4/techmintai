@@ -32,6 +32,7 @@ const jsonLd = [
     description: article.excerpt,
     mainEntityOfPage: { '@id': `${url}#webpage` },
     datePublished: article.date,
+    ...(article.modifiedDate ? { dateModified: article.modifiedDate } : {}),
     inLanguage: 'en',
     articleSection: cat.name,
     author: {
@@ -76,10 +77,12 @@ const jsonLd = [
 
 <Base
   title={article.title}
+  seoTitle={article.seoTitle}
   description={article.excerpt}
   path={`/articles/${article.slug}/`}
   type="article"
   articleDate={article.date}
+  modifiedDate={article.modifiedDate}
   category={cat.name}
   jsonLd={jsonLd}
 >
@@ -107,6 +110,7 @@ const jsonLd = [
             <span aria-hidden="true"> · </span>
             Published
             <time datetime={article.date}>{published}</time>
+            {article.modifiedDate && (<><span aria-hidden="true"> · </span>Updated <time datetime={article.modifiedDate}>{new Date(`${article.modifiedDate}T12:00:00Z`).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}</time></>)}
             <span aria-hidden="true"> · </span>
             {article.readingMinutes} minute read
           </div>
@@ -173,6 +177,15 @@ const jsonLd = [
             </ul>
           </section>
 
+          {['zero-based-budget-guide','build-an-emergency-fund'].includes(article.slug) && (
+            <p>Considering an app to help track your spending? Read our <a href="/articles/ai-budgeting-apps-guide/">guide to AI budgeting apps</a> for accuracy and privacy checks before connecting an account.</p>
+          )}
+          {['automate-small-business-workflows','what-is-vibe-coding'].includes(article.slug) && (
+            <p>Before giving software permission to act, compare <a href="/articles/ai-agents-vs-chatbots/">AI agents and chatbots</a> and explore our <a href="/category/software/">software and workflow guides</a>.</p>
+          )}
+          {article.slug === 'ai-agents-vs-chatbots' && (
+            <p>For a practical starting point, explore <a href="/articles/automate-small-business-workflows/">five small-business workflows to automate</a> in our <a href="/category/software/">software guides</a>.</p>
+          )}
           {article.slug === 'investment-fees-compound-over-time' && (
             <p>Compare two hypothetical fee rates using our <a href="/tools/investment-fees/">Investment Fee Impact Calculator</a>. The model is illustrative and does not predict real returns.</p>
           )}
